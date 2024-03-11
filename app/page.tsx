@@ -1,7 +1,10 @@
+import NavBar from "./NavBar";
 
 
 export default function Home() {
   return (
-    <div>Teff Injera</div>
+    <>
+    <NavBar />
+    </>
   );
 }
