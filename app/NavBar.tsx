@@ -14,8 +14,8 @@ const NavBar = () => {
         {label:"contact us", href: "/contact"}
     ];
   return (
-    <nav className='flex space-x-6 border-b mb-5 px-5 py-3 h-24 items-center justify-between'>
-        <h1 className='font-serif text-8xl text-ShuterGrey p-4'>Teff Injera</h1>
+    <nav className='flex flex-col md:flex-row space-x-6 border-b mb-5 px-5 py-3 sm:h-24 items-center justify-between'>
+        <h1 className='font-serif text-6xl md:text-8xl text-ShuterGrey p-4'>Teff Injera</h1>
         <ul className='flex space-x-8'>
           
             {links.map(link  =>

@@ -1,6 +1,10 @@
+import '@radix-ui/themes/styles.css';
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { Container, Theme } from '@radix-ui/themes';
+import NavBar from './NavBar';
+import { CartProvider } from './CartContext';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,7 +20,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <CartProvider>
+        <Theme>
+        <NavBar />
+        <main>
+          <Container>
+            {children}
+            </Container></main>
+        </Theme></CartProvider>
+        </body>
     </html>
   );
 }
