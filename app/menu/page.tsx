@@ -1,12 +1,16 @@
-import { Box, Button, Card, Flex, Grid, Text } from '@radix-ui/themes'
+import { Box, Button, Card, Dialog, Flex, Grid, Text, TextField } from '@radix-ui/themes'
 import React from 'react'
 import prisma from '@/prisma/client'
 import Image from 'next/image'
-import AddToCartBtn from './components/AddToCartBtn'
+import SelectMenuItem from './components/SelectMenuItemBtn'
+import AddToCart from './components/AddToCart'
+import { MenuItem } from '@prisma/client'
+import SelectBtn from './components/SelectMenuItemBtn'
 
 const page = async() => {
     const menuitems = await prisma.menuItem.findMany();
   return (
+    <>
     <Grid columns={{initial:'1', xs:'2', lg:'3'}} gap='3'className='p-16'>
         {menuitems.map(menuitem => (
             <Card key={menuitem.id}>
@@ -18,7 +22,7 @@ const page = async() => {
                         <Text as='div'>{menuitem.description}</Text>
                         </Box>
                         <Flex justify='between'>
-                           <AddToCartBtn item={menuitem} />
+                           <SelectBtn item={menuitem} />
                             <Text>{menuitem.price.toString() + " Rwf"}</Text>
                         </Flex>
                     </Box>
@@ -26,7 +30,10 @@ const page = async() => {
             </Card>
         ))}
     </Grid>
+    
+    </>
   )
 }
 
 export default page
+

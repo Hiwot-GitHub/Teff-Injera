@@ -5,6 +5,7 @@ import "./globals.css";
 import { Container, Theme } from '@radix-ui/themes';
 import NavBar from './NavBar';
 import { CartProvider } from './CartContext';
+import CartIcon from './components/CartIcon';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,9 +25,11 @@ export default function RootLayout({
         <CartProvider>
         <Theme>
         <NavBar />
+       
         <main>
           <Container>
             {children}
+            <CartIcon />
             </Container></main>
         </Theme></CartProvider>
         </body>
