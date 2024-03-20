@@ -15,7 +15,8 @@ const NavBar = () => {
     ];
   return (
     <nav className='flex flex-col md:flex-row space-x-6 border-b mb-5 px-5 py-3 sm:h-24 items-center justify-between'>
-        <h1 className='font-serif text-6xl md:text-8xl text-ShuterGrey p-4'>Teff Injera</h1>
+        <div className='flex'><h1 className='font-serif text-6xl md:text-8xl text-ShuterGrey p-4'>Teff Injera</h1> 
+        <h2 className='ml-0 mt-16 text-2xl'>የጤፍ እንጀራ</h2></div>
         <ul className='flex space-x-8'>
           
             {links.map(link  =>

@@ -17,6 +17,7 @@ const config: Config = {
         DarkGrayishBlue: '#3c4043',
         AliceBlueDark: '#e6eaeb',
         Charchol: '#262626',
+        SubtleGray: '#CCCCCC',
       },
     },
   },

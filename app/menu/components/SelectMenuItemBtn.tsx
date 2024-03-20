@@ -3,10 +3,9 @@
 import CartContext from '@/app/CartContext';
 import Spinner from '@/app/components/Spinner';
 import { MenuItem } from '@prisma/client';
-import { Box, Button, Text } from '@radix-ui/themes';
+import { Box, Button, Heading, Text } from '@radix-ui/themes';
 import React, { useContext, useState } from 'react';
 import Modal from 'react-modal';
-import { PiBowlFoodThin } from "react-icons/pi";
 
 
 interface FirstAddToCartProps {
@@ -15,11 +14,11 @@ interface FirstAddToCartProps {
   item: MenuItem;
 }
 
-const FirstAddToCartModal: React.FC<FirstAddToCartProps> = ({isOpen, closeFirstModal, item}) => {
+const AddToCartModal: React.FC<FirstAddToCartProps> = ({isOpen, closeFirstModal, item}) => {
   const { openModal, addToCart } = useContext(CartContext);
   const [submitting, setSubmitting] = useState(false);
 
-  const handleAddToCart = async() => {
+  const handleAddToCart = () => {
     setSubmitting(true);
     addToCart(item);
 
@@ -77,8 +76,8 @@ const SelectMenuItemBtn: React.FC<MenuItemProps>= ({ item }) => {
       { submitting && <Spinner />}
     </Button>
     
-    {showModal && <FirstAddToCartModal isOpen={showModal} item={item} closeFirstModal={closeFirstModal}/>} 
-    {isModalOpen && <AddToCart />}
+    {showModal && <AddToCartModal isOpen={showModal} item={item} closeFirstModal={closeFirstModal}/>} 
+    {isModalOpen && <ShowCart />}
   
     </>
   )
@@ -86,17 +85,22 @@ const SelectMenuItemBtn: React.FC<MenuItemProps>= ({ item }) => {
 
 export  default SelectMenuItemBtn
 
-const AddToCart = () => {
-const { cart, isModalOpen,closeModal} = useContext(CartContext);
+const ShowCart = () => {
+const { cart, isModalOpen,closeModal, addToCart, removeFromCart} = useContext(CartContext);
+
 
 return (
   <Box>
-    <Modal isOpen={isModalOpen} onRequestClose={closeModal} style={{overlay:{background: 'rgba(0,0,0,0.5)'}}} className="w-[50%] h-[100%] bg-white shadow-2xl ml-[50%]">
+    <Modal isOpen={isModalOpen} onRequestClose={closeModal} style={{overlay:{background: 'rgba(0,0,0,0.5)'}}} className="w-[40%] h-[100%] bg-white shadow-2xl ml-[60%] pl-4">
+      <Heading as='h1' style={{fontSize: '2rem'}} className='border-b text-BlackRussian font-thin h-16 text-center'>Your order</Heading>
       {cart.map(item => (
-        <Box>
-        <h1 className='p-4 text-4xl border-b '>{item.name}</h1>
-        <Text>{item.description}</Text>
-        <Text>{item.price.toString()}</Text>
+        <Box key={item.menuItem?.id} className='border-b  py-2'>
+        <Heading style={{fontSize: '16px'}}  className='py-4 text-2xl font-bold text-BlackRussian'>{item.menuItem?.name}</Heading>
+        <div className='flex'>
+        <button onClick={() => removeFromCart(item.menuItem.id)} className='w-8 h-8 bg-white hover:bg-slate-300 rounded-l-full border-l-2 border-y-2'>-</button>
+        <div className='w-8 h-8 bg-white  px-2 align-middle border-y-2'>{item.quantity}</div>
+        <button onClick={() => addToCart(item.menuItem)} className='w-8 h-8 bg-white violet-50  hover:bg-slate-300 rounded-r-full border-r-2 border-y-2'>+</button>
+        <Text size="8" className='px-4'>{"x "+ item.menuItem?.price.toString()}</Text></div>
         </Box>
       ))}
       
@@ -104,6 +108,7 @@ return (
   </Box>
 )
 }
+export { ShowCart }
 
 
 
