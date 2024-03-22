@@ -3,9 +3,9 @@ import React from 'react'
 import prisma from '@/prisma/client'
 import Image from 'next/image'
 import SelectMenuItem from './components/SelectMenuItemBtn'
-import AddToCart from './components/AddToCart'
 import { MenuItem } from '@prisma/client'
 import SelectBtn from './components/SelectMenuItemBtn'
+import SelectMenuItemBtn from './components/SelectMenuItemBtn'
 
 const page = async() => {
     const menuitems = await prisma.menuItem.findMany();
@@ -22,7 +22,7 @@ const page = async() => {
                         <Text as='div'>{menuitem.description}</Text>
                         </Box>
                         <Flex justify='between'>
-                           <SelectBtn item={menuitem} />
+                           <SelectMenuItemBtn item={menuitem} />
                             <Text>{menuitem.price.toString() + " Rwf"}</Text>
                         </Flex>
                     </Box>

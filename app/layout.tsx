@@ -7,6 +7,8 @@ import NavBar from './NavBar';
 import { CartProvider } from './CartContext';
 import CartIcon from './components/CartIcon';
 
+import ShowCartIcon from './ShowCartIcon';
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -29,7 +31,7 @@ export default function RootLayout({
         <main>
           <Container>
             {children}
-            <CartIcon />
+           <ShowCartIcon />
             </Container></main>
         </Theme></CartProvider>
         </body>

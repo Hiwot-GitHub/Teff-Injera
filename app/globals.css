@@ -25,3 +25,25 @@ body {
     text-wrap: balance;
   }
 }
+
+/* Set the width and color of the scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  background-color: #ebebeb;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f5f5f5;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #a7a7a7;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background:  #898989;
+}
+

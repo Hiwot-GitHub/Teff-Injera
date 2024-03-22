@@ -1,6 +1,6 @@
 'use client'
 import { MenuItem } from "@prisma/client";
-import { ReactNode, createContext,useState, useContext } from "react";
+import { ReactNode, createContext,useState, useContext, useEffect } from "react";
 
 interface CartItem {
   menuItem: MenuItem;
@@ -10,18 +10,22 @@ interface CartContextType {
     cart: CartItem[];
     addToCart: (menuItem: MenuItem) => void;
     removeFromCart: (menuItemId: number) => void;
+    removeItemFromCart: (menuItemId: number) => void;
     isModalOpen: boolean;
     openModal: () => void;
     closeModal: () => void;
+    total: number;
   }
 
   const initialContextValue: CartContextType = {
     cart: [],
     addToCart: () => {},
     removeFromCart: () => {},
+    removeItemFromCart: () => {},
     isModalOpen: false,
     openModal: () => {},
-    closeModal: () => {}
+    closeModal: () => {},
+    total: 0,
   };
 
   const CartContext = createContext<CartContextType>(initialContextValue);
@@ -30,6 +34,14 @@ interface CartContextType {
 export const CartProvider = ({children}: {children:ReactNode}) => {
     const [cart, setCart] = useState<CartItem[]>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [total, setTotal] = useState<number>(0);
+
+    
+  useEffect(() => {
+    // Calculate total when cart changes
+    const totalPrice = cart.reduce((acc, item) => acc + item.menuItem.price * item.quantity, 0);
+    setTotal(totalPrice);
+  }, [cart]);
 
     const addToCart = (menuItem: MenuItem) => {
       const existingCartItemIndex = cart.findIndex(item => item.menuItem.id === menuItem.id);
@@ -40,6 +52,7 @@ export const CartProvider = ({children}: {children:ReactNode}) => {
       } else {
         setCart(prevCart => [...prevCart, { menuItem, quantity: 1 }]);
       };
+      updateTotal();
     }
     
       const removeFromCart = (menuItemId: number) => {
@@ -56,8 +69,19 @@ export const CartProvider = ({children}: {children:ReactNode}) => {
             return item;
           }
         }).filter(Boolean); // Filter out any null values
-      
-        setCart(updatedCart);
+        const filteredCart = updatedCart.filter(Boolean) as CartItem[];
+        setCart(filteredCart);
+        updateTotal();
+      };
+
+      const removeItemFromCart = (menuItemId: number) => {
+        setCart(cart.filter(item => item.menuItem.id !== menuItemId));
+        updateTotal();
+      };
+
+      const updateTotal = () => {
+          const totalPrice = cart.reduce((acc, item) => acc + item.menuItem.price * item.quantity, 0);
+          setTotal(totalPrice); 
       };
 
       const openModal = () => {
@@ -69,7 +93,7 @@ export const CartProvider = ({children}: {children:ReactNode}) => {
       }
     
       return (
-        <CartContext.Provider value={{ cart, addToCart, removeFromCart, isModalOpen, openModal, closeModal }}>
+        <CartContext.Provider value={{ cart, addToCart, removeFromCart,removeItemFromCart,total, isModalOpen, openModal, closeModal }}>
           {children}
         </CartContext.Provider>
       );
