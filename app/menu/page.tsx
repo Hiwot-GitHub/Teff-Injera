@@ -11,7 +11,7 @@ const page = async() => {
     const menuitems = await prisma.menuItem.findMany();
   return (
     <>
-    <Grid columns={{initial:'1', xs:'2', lg:'3'}} gap='3'className='p-16'>
+    <Grid columns={{initial:'1', xs:'2', lg:'3'}} gapX='4' gapY='8' className='p-16'>
         {menuitems.map(menuitem => (
             <Card key={menuitem.id}>
                 <Flex  direction='column'>

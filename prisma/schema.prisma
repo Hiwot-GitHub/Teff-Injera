@@ -20,3 +20,40 @@ model MenuItem{
   price Int
   image_url String @db.VarChar(255)
 }
+
+model Order {
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  customer    Customer @relation(fields: [id], references: [id])
+  cart     Json     
+  total     Int
+  note      String?
+  deliveryTimeSlot DateTime?
+  status    OrderStatus
+  paymentMode PaymentMode
+  
+}
+
+model Customer {
+  id        Int      @id @default(autoincrement())
+  firstName String?
+  lastName  String?
+  email     String @unique
+  phone     String @unique
+  address   String
+  orders    Order[]
+  
+}
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  DELIVERED
+  CANCELED
+}
+
+enum PaymentMode{
+  CASH
+  MOBILEMONEY
+}
