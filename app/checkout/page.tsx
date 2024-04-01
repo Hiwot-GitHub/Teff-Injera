@@ -1,8 +1,15 @@
-import React from 'react'
+import { Box, Grid } from '@radix-ui/themes'
+import dynamic from 'next/dynamic';
+
+const OrderForm = dynamic(() => import('@/app/components/OrderForm'),{ssr: false});
 
 const CheckoutPage = () => {
   return (
-    <div>Checkout page</div>
+    
+      <Box>
+        <OrderForm />
+      </Box>
+    
   )
 }
 
