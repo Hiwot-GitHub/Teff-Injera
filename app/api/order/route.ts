@@ -1,30 +1,7 @@
 import prisma from "@/prisma/client";
-import { Customer } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
-import { z } from 'zod'
+import { CreateOrderSchema } from "@/app/validationSchema";
 
-export const CustomerInfoSchema = z.object({
-    firstName: z.string().optional(),
-    lastName: z.string().optional(),
-    email: z.string().email(),
-    phone: z.string().regex(/^\d{10}$/), // Example regex for a 10-digit phone number
-    address: z.string(),
-  });
-
-
-export const CreateOrderSchema = z.object({
-    customerInfo : CustomerInfoSchema,
-    cart: z.array(
-      z.object({
-        menuItemId: z.number(), 
-        quantity: z.number().min(1), 
-      })
-    ),
-    total: z.number().min(0), 
-    note: z.string().optional(), 
-    deliveryTimeSlot: z.string().optional(), 
-    paymentMode: z.enum(['CASH', 'MOBILEMONEY']),
-  });
 
 export async function POST(request: NextRequest) {
     const body = await request.json();
@@ -41,8 +18,9 @@ export async function POST(request: NextRequest) {
     if (!email && !phone) {
         return NextResponse.json('Email or phone number is required', { status: 400 });
     }
-    
-    const customerByEmail = await prisma.customer.findUnique({
+
+
+  const customerByEmail = await prisma.customer.findUnique({
         where: {
                 email: email,    
         } ,      
@@ -61,13 +39,20 @@ export async function POST(request: NextRequest) {
     
     if (!customer) {
         // Customer doesn't exist, create new customer
-        customer = await prisma.customer.create({
-            data: customerInfo,
-        });
+        try {
+            customer = await prisma.customer.create({
+                data: customerInfo,
+            });
+            
+        } catch (error) {
+            return NextResponse.json('Error creating customer', { status: 500 });
+        }
+       
     }
-
+    
     const { cart, total, note, deliveryTimeSlot, paymentMode } = orderDetails;
     
+    try {
     const newOrder = await prisma.order.create({
         data: {
             customer: {
@@ -83,6 +68,9 @@ export async function POST(request: NextRequest) {
     });
 
     return NextResponse.json(newOrder, {status: 201});
-
+} catch(error){
+    console.error('Error creating order:', error);
+    return NextResponse.json('Error creating order', { status: 500 });
+}
 
 }

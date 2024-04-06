@@ -25,7 +25,8 @@ model Order {
   id          Int      @id @default(autoincrement())
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  customer    Customer @relation(fields: [id], references: [id])
+  customerId  Int
+  customer    Customer @relation(fields: [customerId], references: [id])
   cart     Json     
   total     Int
   note      String?
