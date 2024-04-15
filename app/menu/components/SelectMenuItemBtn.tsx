@@ -4,6 +4,7 @@ import CartContext from '@/app/CartContext';
 import Spinner from '@/app/components/Spinner';
 import { MenuItem } from '@prisma/client';
 import { Box, Button, Heading, Text, ScrollArea } from '@radix-ui/themes';
+import { Body } from '@radix-ui/themes/src/components/table.jsx';
 import Link  from 'next/link';
 import React, { useContext, useEffect, useState } from 'react';
 import { IoIosCloseCircleOutline } from 'react-icons/io';

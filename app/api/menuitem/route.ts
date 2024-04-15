@@ -1,13 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from 'zod';
 import prisma from "@/prisma/client";
+import  { createMenuItemSchema} from '@/app/validationSchema'
 
-const createMenuItemSchema = z.object({
-    name : z.string().min(1).max(255),
-    description : z.string().min(1), 
-    price : z.number().min(1),
-    image_url : z.string().min(1).max(255), 
-})
 
 export async function POST(request: NextRequest) {
     const body = await request.json();

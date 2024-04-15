@@ -4,16 +4,21 @@ import React, { useContext, useState, useEffect } from 'react'
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
 import CartContext from '../CartContext';
-import { useForm, Controller, useController } from "react-hook-form";
-import { CreateOrderSchema } from '../validationSchema';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm, Controller, useController, SubmitHandler } from "react-hook-form";
+import { CreateOrderFormSchema, CreateOrderSchema } from '../validationSchema';
 import axios from'axios';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation'; 
+import { z } from 'zod'
+import { CartItem } from '../CartContex';
 
+type orderFormData = z.infer<typeof CreateOrderFormSchema>
+type orderData = z.infer<typeof CreateOrderSchema>
 
 const OrderForm = () => {
     const {cart, total} = useContext(CartContext);
     const [selectedDate, setSelectedDate] = useState<Date>(new Date());
-    const { register, handleSubmit, control } = useForm<typeof CreateOrderSchema>();
+    const { register, handleSubmit, control } = useForm<orderFormData>({resolver: zodResolver(CreateOrderFormSchema)});
     const router = useRouter();
 
     const currentDate = new Date();
@@ -25,26 +30,29 @@ const deliveryDates = {
   tomorrow: tomorrowDate.toISOString().split('T')[0], // Format: "YYYY-MM-DD"
 };
 
+const onSubmit: SubmitHandler<orderFormData> = async (formData) => {
+  try{
+    console.log(formData);
+    const parsedCart: CartItem[] = JSON.parse(formData.cart);
+    const parsedTotal: number = Number(formData.total);
+    const data: orderData = {
+      ...formData,
+      cart: parsedCart,
+      total: parsedTotal
+
+    };
+    console.log(data);
+    await axios.post('/api/order', data);
+  }catch(error){
+    console.error('Error submitting order:', error);
+  }
+ 
+}
 
 
   
   return (
-    <form onSubmit={handleSubmit(async(data) => {
-    try {
-      const formattedDeliveryTimeSlot = data._type.deliveryTimeSlot ? new Date(data._type.deliveryTimeSlot): undefined ;
-       await axios.post('/api/order', {
-        ...data,
-        _type: {
-          ...data._type,
-          deliveryTimeSlot: formattedDeliveryTimeSlot
-        },
-       });
-       router.push('/menu')
-      } catch (error) {
-        console.error('Error submitting order:', error);
-      }
-    }
-  )}>
+    <form onSubmit={handleSubmit(onSubmit)}>
     <Grid columns={{initial: '1' , md: '2'}} gap='5' width='auto' className='sm: px-10'>
     <Box>
         <Heading as="h1" size="4">Billing and Shipping</Heading>
@@ -52,37 +60,38 @@ const deliveryDates = {
             <Flex gapX="4px">
              <Box width='auto'>
                 <Text as='label'>First Name<Text as='span' color='red'>*</Text></Text>
-                <TextField.Root size="1" placeholder="First Name" {...register('_type.customerInfo.firstName')}>  
+                <TextField.Root size="1" placeholder="First Name" {...register('firstName')}>  
                 </TextField.Root>
            </Box>
            <Box width='auto'>
                 <Text as='label'>Last Name<Text as='span' color='red'>*</Text></Text>
-                <TextField.Root  size="1" placeholder="Last Name" {...register('_type.customerInfo.lastName')}>
+                <TextField.Root  size="1" placeholder="Last Name" {...register('lastName')}>
                    
                 </TextField.Root>
            </Box>
            </Flex>
            <Box className='w-[60%]'>
            <Text as='label'>Email<Text as='span' color='red'>*</Text></Text>
-           <TextField.Root size="3" placeholder="Email" {...register('_type.customerInfo.email')}>
+           <TextField.Root size="3" placeholder="Email" {...register('email')}>
             </TextField.Root>
           </Box>
           <Box className='w-[60%]'>
           <Text as='label'>Phone number<Text as='span' color='red'>*</Text></Text>
-           <TextField.Root  size="3" placeholder="Phone number" {...register('_type.customerInfo.phone')}>
+           <TextField.Root  size="3" placeholder="Phone number" {...register('phone')}>
            
             </TextField.Root>
           </Box>
           <Box className='w-[60%]'>
           <Text as='label'>Address<Text as='span' color='red'>*</Text></Text>
-           <TextField.Root size="3" placeholder="Street name, House number" {...register('_type.customerInfo.address')}>
-         
+           <TextField.Root size="3" placeholder="Street name, House number" {...register('address')}>
             </TextField.Root>
+            <input type="hidden" {...register('cart')} value={JSON.stringify(cart)} />
+            <input type="hidden" {...register('total')} value={total} />
           </Box>
           <Box className='w-auto'>
             <Text as='label'>Note(optional) </Text>
             <Controller
-            name='_type.note'
+            name='note'
             control={control}
             render={({field: {value, onChange}}) => (
               <SimpleMDE value={value}
@@ -104,28 +113,28 @@ const deliveryDates = {
         <Text as='div'>unit price</Text>
         </Flex>
         {cart.map(item => {
-            return <Flex gap='6'><Text as='div'>{item.menuItem.name}</Text><Text as='span'> x {item.quantity}</Text><Text>{item.menuItem.price}</Text></Flex>
+            return <Flex key={item.menuItem.id} gap='6'><Text as='div'>{item.menuItem.name}</Text><Text as='span'> x {item.quantity}</Text><Text>{item.menuItem.price}</Text></Flex>
         })}
         <Text as='div'>Total:{total}</Text>
         <Heading size='1' mb='4'>Choose delivery time?</Heading>
         <Flex direction="column"gap="5" >
          <Box>
-        <Text as='span' className='mr-5' >Delivery Date</Text> 
+        <Text as='span' className='mr-5'>Delivery Date</Text> 
       
         <Controller 
-        name='_type.deliveryTimeSlot'
+        name='deliveryTimeSlot'
         control={control} 
-        defaultValue={deliveryDates.today} 
-        render={({ field: { onChange, value } }) => (
-    <Select.Root value={value} onValueChange={onChange}>
-      <Select.Trigger variant='soft' />
-      <Select.Content>
-        <Select.Item value={deliveryDates.today}>today</Select.Item>
-        <Select.Item value={deliveryDates.tomorrow}>tomorrow</Select.Item>
-      </Select.Content>
-    </Select.Root>
-  )}
-/>
+       
+        render={({ field: { onChange, value } }) => ( 
+            <Select.Root value={value} onValueChange={onChange}>
+            <Select.Trigger variant='soft' />
+            <Select.Content>
+              <Select.Item value={deliveryDates.today}>today</Select.Item>
+              <Select.Item value={deliveryDates.tomorrow}>tomorrow</Select.Item>
+             </Select.Content>
+        </Select.Root>
+         )}
+       /> 
         </Box>
         <Box>
         <Text as='span' className='mr-5' >Delivery Time</Text> 
@@ -145,7 +154,7 @@ const deliveryDates = {
         <Box>
         <Heading>Payment Method</Heading>
         <Controller
-        name="_type.paymentMode"
+        name="paymentMode"
         defaultValue="MOBILEMONEY"
         control={control}
         render={({ field: {value, onChange} }) => (
@@ -158,7 +167,7 @@ const deliveryDates = {
     
         <Text as='label' className='py-5 text-xl'>Total: {total}</Text>
         </Box> 
-        <Button type='submit'>Place Order</Button>
+        <Button type="submit">Place Order</Button>
     </Box>
     </Grid>
     </form>

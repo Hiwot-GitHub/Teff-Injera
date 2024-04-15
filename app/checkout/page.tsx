@@ -7,7 +7,7 @@ const CheckoutPage = () => {
   return (
     
       <Box>
-        <OrderForm />
+        <OrderForm/>
       </Box>
     
   )

@@ -11,7 +11,7 @@ export async function POST(request: NextRequest) {
     if(!validation.success)
         return NextResponse.json(validation.error.format(), {status: 400});
 
-    const { customerInfo, ...orderDetails } = validation.data
+    const {  cart, total, note, deliveryTimeSlot, paymentMode, ...customerInfo  } = validation.data
 
     const { email, phone, ...restCustomerInfo } =  customerInfo 
 
@@ -50,7 +50,7 @@ export async function POST(request: NextRequest) {
        
     }
     
-    const { cart, total, note, deliveryTimeSlot, paymentMode } = orderDetails;
+    //const { cart, total, note, deliveryTimeSlot, paymentMode } = orderDetails;
     
     try {
     const newOrder = await prisma.order.create({

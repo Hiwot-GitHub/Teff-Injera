@@ -2,7 +2,7 @@
 import { MenuItem } from "@prisma/client";
 import { ReactNode, createContext,useState, useContext, useEffect } from "react";
 
-interface CartItem {
+export interface CartItem {
   menuItem: MenuItem;
   quantity: number;
 }
