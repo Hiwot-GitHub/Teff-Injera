@@ -6,6 +6,7 @@ import { Container, Theme } from '@radix-ui/themes';
 import NavBar from './NavBar';
 import { CartProvider } from './CartContext';
 import CartIcon from './components/CartIcon';
+import { ThemeProvider } from 'next-themes'
 
 import ShowCartIcon from './ShowCartIcon';
 
@@ -25,7 +26,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <CartProvider>
-        <Theme>
+        <ThemeProvider attribute='class'>
+        <Theme accentColor='grass'>
         <NavBar />
        
         <main>
@@ -33,7 +35,7 @@ export default function RootLayout({
             {children}
            <ShowCartIcon />
             </Container></main>
-        </Theme></CartProvider>
+        </Theme></ThemeProvider></CartProvider>
         </body>
     </html>
   );

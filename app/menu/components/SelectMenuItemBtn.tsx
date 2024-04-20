@@ -75,7 +75,7 @@ const SelectMenuItemBtn: React.FC<MenuItemProps>= ({ item }) => {
       
   return (
     <>
-    <Button onClick={handleClick} disabled={submitting}>Select
+    <Button variant='soft' size='4' onClick={handleClick} disabled={submitting}>Select
       { submitting && <Spinner />}
     </Button>
     

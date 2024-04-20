@@ -11,9 +11,10 @@ const page = async() => {
     const menuitems = await prisma.menuItem.findMany();
   return (
     <>
-    <Grid columns={{initial:'1', xs:'2', lg:'3'}} gapX='4' gapY='8' className='p-16'>
+    <Grid columns={{initial:'1', xs:'2', md:'3'}} gapX='1' gapY='8' className='p-8' justify="center"align="center">
         {menuitems.map(menuitem => (
-            <Card key={menuitem.id}>
+            <Box width={{ xs: '40vw', md: '30vw'  }} key={menuitem.id} maxWidth={{xs: '40vw', md: '30vw', lg: '25vw'}}>
+            <Card>
                 <Flex  direction='column'>
                     <Image src="/food.jpg" alt='food' layout='responsive' width='260' height="220" />
                     <Box className='bg-white'>
@@ -28,12 +29,14 @@ const page = async() => {
                     </Box>
                 </Flex>
             </Card>
+            </Box>
         ))}
     </Grid>
     
     </>
   )
 }
+
 
 export default page
 

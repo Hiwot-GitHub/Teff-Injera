@@ -1,5 +1,5 @@
 'use client'
-import { Box, Flex, TextField, Text, Grid, Heading, Button, DropdownMenu, Select, RadioGroup } from '@radix-ui/themes'
+import { Box, Flex, TextField, Text, Grid, Heading, Button, Callout, Select, RadioGroup } from '@radix-ui/themes'
 import React, { useContext, useState, useEffect } from 'react'
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
@@ -10,15 +10,17 @@ import { CreateOrderFormSchema, CreateOrderSchema } from '../validationSchema';
 import axios from'axios';
 import { useRouter } from 'next/navigation'; 
 import { z } from 'zod'
-import { CartItem } from '../CartContex';
+import { CartItem } from '@/app/CartContext';
+import   ErrorMessage  from './ErrorMessage';
 
 type orderFormData = z.infer<typeof CreateOrderFormSchema>
 type orderData = z.infer<typeof CreateOrderSchema>
 
 const OrderForm = () => {
     const {cart, total} = useContext(CartContext);
+    const [error, setError] = useState('');
     const [selectedDate, setSelectedDate] = useState<Date>(new Date());
-    const { register, handleSubmit, control } = useForm<orderFormData>({resolver: zodResolver(CreateOrderFormSchema)});
+    const { register, handleSubmit, control,  formState: { errors } } = useForm<orderFormData>({resolver: zodResolver(CreateOrderFormSchema)});
     const router = useRouter();
 
     const currentDate = new Date();
@@ -52,6 +54,9 @@ const onSubmit: SubmitHandler<orderFormData> = async (formData) => {
 
   
   return (
+    <>
+    {error && (<Callout.Root color='red' className='mb-5'>
+    <Callout.Text>{error}</Callout.Text></Callout.Root>)}
     <form onSubmit={handleSubmit(onSubmit)}>
     <Grid columns={{initial: '1' , md: '2'}} gap='5' width='auto' className='sm: px-10'>
     <Box>
@@ -60,31 +65,29 @@ const onSubmit: SubmitHandler<orderFormData> = async (formData) => {
             <Flex gapX="4px">
              <Box width='auto'>
                 <Text as='label'>First Name<Text as='span' color='red'>*</Text></Text>
-                <TextField.Root size="1" placeholder="First Name" {...register('firstName')}>  
-                </TextField.Root>
+                <TextField.Root size="1" placeholder="First Name" {...register('firstName')}></TextField.Root>
+                <ErrorMessage>{errors.firstName?.message}</ErrorMessage> 
            </Box>
            <Box width='auto'>
                 <Text as='label'>Last Name<Text as='span' color='red'>*</Text></Text>
-                <TextField.Root  size="1" placeholder="Last Name" {...register('lastName')}>
-                   
-                </TextField.Root>
+                <TextField.Root  size="1" placeholder="Last Name" {...register('lastName')}> </TextField.Root>
+                <ErrorMessage>{errors.lastName?.message}</ErrorMessage>
            </Box>
            </Flex>
            <Box className='w-[60%]'>
            <Text as='label'>Email<Text as='span' color='red'>*</Text></Text>
-           <TextField.Root size="3" placeholder="Email" {...register('email')}>
-            </TextField.Root>
+           <TextField.Root size="3" placeholder="Email" {...register('email')}></TextField.Root>
+           <ErrorMessage>{errors.email?.message}</ErrorMessage> 
           </Box>
           <Box className='w-[60%]'>
           <Text as='label'>Phone number<Text as='span' color='red'>*</Text></Text>
-           <TextField.Root  size="3" placeholder="Phone number" {...register('phone')}>
-           
-            </TextField.Root>
+           <TextField.Root  size="3" placeholder="Phone number" {...register('phone')}></TextField.Root>
+           <ErrorMessage>{errors.phone?.message}</ErrorMessage> 
           </Box>
           <Box className='w-[60%]'>
           <Text as='label'>Address<Text as='span' color='red'>*</Text></Text>
-           <TextField.Root size="3" placeholder="Street name, House number" {...register('address')}>
-            </TextField.Root>
+           <TextField.Root size="3" placeholder="Street name, House number" {...register('address')}></TextField.Root>
+           <ErrorMessage>{errors.address?.message}</ErrorMessage> 
             <input type="hidden" {...register('cart')} value={JSON.stringify(cart)} />
             <input type="hidden" {...register('total')} value={total} />
           </Box>
@@ -164,6 +167,7 @@ const onSubmit: SubmitHandler<orderFormData> = async (formData) => {
           </RadioGroup.Root>
         )}
         />
+          <ErrorMessage>{errors.paymentMode?.message}</ErrorMessage> 
     
         <Text as='label' className='py-5 text-xl'>Total: {total}</Text>
         </Box> 
@@ -171,6 +175,7 @@ const onSubmit: SubmitHandler<orderFormData> = async (formData) => {
     </Box>
     </Grid>
     </form>
+    </>
   )
 }
 

@@ -43,11 +43,11 @@ export const CustomerInfoSchema = z.object({
 
 // client side validation for the form
 export const CreateOrderFormSchema = z.object({
-    firstName: z.string().min(1),
-    lastName: z.string().min(1),
+    firstName: z.string().min(1, "first name is required"),
+    lastName: z.string().min(1,"last name is required"),
     email: z.string().email(),
     phone: z.string().regex(/^\d{10}$/), // Example regex for a 10-digit phone number
-    address: z.string(),
+    address: z.string().min(1, "Address is required"),
     cart: z.string(),
     total: z.string(),
     note: z.string().optional(), 
