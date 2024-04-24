@@ -2,6 +2,7 @@ import { z } from 'zod';
 
 export const createMenuItemSchema = z.object({
   name : z.string().min(1).max(255),
+  amharicname : z.string().min(1),
   description : z.string().min(1), 
   price : z.number().min(1),
   image_url : z.string().min(1).max(255), 
@@ -10,6 +11,7 @@ export const createMenuItemSchema = z.object({
 const MenuItemSchema = z.object({
   id : z.number(),
   name : z.string().min(1).max(255),
+  amharicname : z.string().min(1),
   description : z.string().min(1), 
   price : z.number().min(1),
   image_url : z.string().min(1).max(255), 

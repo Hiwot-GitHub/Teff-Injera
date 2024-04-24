@@ -1,4 +1,4 @@
-import { Box, Button, Card, Dialog, Flex, Grid, Text, TextField } from '@radix-ui/themes'
+import { Blockquote, Box, Button, Card, Dialog, Flex, Grid, Separator, Text, TextField } from '@radix-ui/themes'
 import React from 'react'
 import prisma from '@/prisma/client'
 import Image from 'next/image'
@@ -19,8 +19,12 @@ const page = async() => {
                     <Image src="/food.jpg" alt='food' layout='responsive' width='260' height="220" />
                     <Box className='bg-white'>
                         <Box className='h-48'>
-                        <Text as="div" className='text-2xl text-BlackRussian'>{menuitem.name} ሰላጣ</Text>
-                        <Text as='div'>{menuitem.description}</Text>
+                        <Flex as='div' gap="2" align="center" className='md:text-2xl sm:text-xl py-2 '>
+                        <Text >{menuitem.name}</Text>
+                        <Separator orientation="vertical" /> 
+                        <Text>{menuitem.amharicname}</Text>
+                        </Flex>
+                        <Box py='2' px='1'><Blockquote>{menuitem.description}</Blockquote></Box>
                         </Box>
                         <Flex justify='between'>
                            <SelectMenuItemBtn item={menuitem} />

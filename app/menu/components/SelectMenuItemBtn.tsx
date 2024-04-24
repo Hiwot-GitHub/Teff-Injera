@@ -3,7 +3,7 @@
 import CartContext from '@/app/CartContext';
 import Spinner from '@/app/components/Spinner';
 import { MenuItem } from '@prisma/client';
-import { Box, Button, Heading, Text, ScrollArea } from '@radix-ui/themes';
+import { Box, Button, Heading, Text, ScrollArea, Separator, Flex, Blockquote } from '@radix-ui/themes';
 import { Body } from '@radix-ui/themes/src/components/table.jsx';
 import Link  from 'next/link';
 import React, { useContext, useEffect, useState } from 'react';
@@ -36,10 +36,15 @@ const AddToCartModal: React.FC<FirstAddToCartProps> = ({isOpen, closeFirstModal,
   return(
     <>
     <Modal isOpen={isOpen} onRequestClose={closeFirstModal} style={{overlay:{background: 'rgba(0,0,0,0.5)'}}} className="w-[50%] h-[100%] bg-white shadow-2xl ml-[50%]">
-      <h1>{item.name}</h1>
-      <p>{item.description}</p>
-      <p>{item.price.toString()}</p>
-      <button onClick={handleAddToCart} disabled={submitting}>
+      
+      <Flex as='div' gap="9" align="center" className='md:text-2xl sm:text-xl py-2 '>
+                        <Text >{item.name}</Text>
+                        <Separator orientation="vertical" /> 
+                        <Text>{item.amharicname}</Text>
+                        </Flex>
+      <Blockquote>{item.description}</Blockquote>
+      <Text as='div'>{item.price.toString()}</Text>
+      <button onClick={handleAddToCart} disabled={submitting} className='bg-Grass hover:bg-AlphaGrass  w-20 h-6 rounded-full text-BoldGrass'>
         Add
         {submitting && <Spinner />}
       </button>
@@ -75,7 +80,7 @@ const SelectMenuItemBtn: React.FC<MenuItemProps>= ({ item }) => {
       
   return (
     <>
-    <Button variant='soft' size='4' onClick={handleClick} disabled={submitting}>Select
+    <Button variant='soft' size='3' radius='full' onClick={handleClick} disabled={submitting}>Select
       { submitting && <Spinner />}
     </Button>
     
@@ -110,7 +115,7 @@ const handleAddToCart = (menuItem: MenuItem) => {
 
 return (
   <Box>
-    <Modal isOpen={isModalOpen} onRequestClose={closeModal} style={{overlay:{background: 'rgba(0,0,0,0.5)'}}} className="w-[40%] h-[100%] bg-white shadow-2xl ml-[60%] pl-4">
+    <Modal isOpen={isModalOpen} onRequestClose={closeModal} style={{overlay:{background: 'rgba(0,0,0,0.05)'}}} className="w-[40%] h-[100%] bg-white shadow-2xl ml-[60%] pl-4">
       <Heading as='h1' style={{fontSize: '2rem'}} className='border-b text-BlackRussian font-thin h-16 text-center'>Your order</Heading>
       <div style={{ maxHeight: '235px', overflowY: 'auto' }}>
       {cart.map(item => (

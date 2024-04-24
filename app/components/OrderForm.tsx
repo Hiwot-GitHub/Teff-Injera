@@ -12,16 +12,19 @@ import { useRouter } from 'next/navigation';
 import { z } from 'zod'
 import { CartItem } from '@/app/CartContext';
 import   ErrorMessage  from './ErrorMessage';
+import Spinner from './Spinner';
 
 type orderFormData = z.infer<typeof CreateOrderFormSchema>
 type orderData = z.infer<typeof CreateOrderSchema>
 
 const OrderForm = () => {
-    const {cart, total} = useContext(CartContext);
+    const {cart, total, clearCart} = useContext(CartContext);
     const [error, setError] = useState('');
     const [selectedDate, setSelectedDate] = useState<Date>(new Date());
     const { register, handleSubmit, control,  formState: { errors } } = useForm<orderFormData>({resolver: zodResolver(CreateOrderFormSchema)});
     const router = useRouter();
+    const [formSubmitted, setFormSubmitted] = useState(false);
+    const [submitting, setSubmitting] = useState(false);
 
     const currentDate = new Date();
     const tomorrowDate = new Date();
@@ -34,7 +37,7 @@ const deliveryDates = {
 
 const onSubmit: SubmitHandler<orderFormData> = async (formData) => {
   try{
-    console.log(formData);
+    setSubmitting(true);
     const parsedCart: CartItem[] = JSON.parse(formData.cart);
     const parsedTotal: number = Number(formData.total);
     const data: orderData = {
@@ -45,6 +48,8 @@ const onSubmit: SubmitHandler<orderFormData> = async (formData) => {
     };
     console.log(data);
     await axios.post('/api/order', data);
+    clearCart();
+    setFormSubmitted(true);
   }catch(error){
     console.error('Error submitting order:', error);
   }
@@ -54,6 +59,8 @@ const onSubmit: SubmitHandler<orderFormData> = async (formData) => {
 
   
   return (
+    <>
+    {formSubmitted?(<Text>We have received your order!Thank you.</Text>): (
     <>
     {error && (<Callout.Root color='red' className='mb-5'>
     <Callout.Text>{error}</Callout.Text></Callout.Root>)}
@@ -171,11 +178,15 @@ const onSubmit: SubmitHandler<orderFormData> = async (formData) => {
     
         <Text as='label' className='py-5 text-xl'>Total: {total}</Text>
         </Box> 
-        <Button type="submit">Place Order</Button>
+        <Button type="submit" disabled={submitting}>Place Order
+        {submitting && <Spinner />}</Button>
     </Box>
     </Grid>
     </form>
     </>
+   )}
+  
+  </>
   )
 }
 

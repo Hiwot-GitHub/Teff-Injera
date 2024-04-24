@@ -8,6 +8,7 @@ export interface CartItem {
 }
 interface CartContextType {
     cart: CartItem[];
+    clearCart: () => void;
     addToCart: (menuItem: MenuItem) => void;
     removeFromCart: (menuItemId: number) => void;
     removeItemFromCart: (menuItemId: number) => void;
@@ -19,6 +20,7 @@ interface CartContextType {
 
   const initialContextValue: CartContextType = {
     cart: [],
+    clearCart: () => {},
     addToCart: () => {},
     removeFromCart: () => {},
     removeItemFromCart: () => {},
@@ -42,6 +44,10 @@ export const CartProvider = ({children}: {children:ReactNode}) => {
     const totalPrice = cart.reduce((acc, item) => acc + item.menuItem.price * item.quantity, 0);
     setTotal(totalPrice);
   }, [cart]);
+
+  const clearCart = () => {
+    setCart([]);
+  }
 
     const addToCart = (menuItem: MenuItem) => {
       const existingCartItemIndex = cart.findIndex(item => item.menuItem.id === menuItem.id);
@@ -93,7 +99,7 @@ export const CartProvider = ({children}: {children:ReactNode}) => {
       }
     
       return (
-        <CartContext.Provider value={{ cart, addToCart, removeFromCart,removeItemFromCart,total, isModalOpen, openModal, closeModal }}>
+        <CartContext.Provider value={{ cart, clearCart, addToCart, removeFromCart,removeItemFromCart,total, isModalOpen, openModal, closeModal }}>
           {children}
         </CartContext.Provider>
       );

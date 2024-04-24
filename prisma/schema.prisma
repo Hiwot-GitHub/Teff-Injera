@@ -16,6 +16,7 @@ datasource db {
 model MenuItem{
   id Int @id @default(autoincrement())
   name String @db.VarChar(255)
+  amharicname String @db.VarChar(255)
   description String @db.Text
   price Int
   image_url String @db.VarChar(255)
