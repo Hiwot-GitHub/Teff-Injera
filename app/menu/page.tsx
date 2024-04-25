@@ -1,10 +1,6 @@
-import { Blockquote, Box, Button, Card, Dialog, Flex, Grid, Separator, Text, TextField } from '@radix-ui/themes'
-import React from 'react'
 import prisma from '@/prisma/client'
+import { Blockquote, Box, Card, Flex, Grid, Separator, Text } from '@radix-ui/themes'
 import Image from 'next/image'
-import SelectMenuItem from './components/SelectMenuItemBtn'
-import { MenuItem } from '@prisma/client'
-import SelectBtn from './components/SelectMenuItemBtn'
 import SelectMenuItemBtn from './components/SelectMenuItemBtn'
 
 const page = async() => {
