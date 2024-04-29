@@ -20,7 +20,8 @@ type orderData = z.infer<typeof CreateOrderSchema>
 const OrderForm = () => {
     const {cart, total, clearCart} = useContext(CartContext);
     const [error, setError] = useState('');
-    const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+    const [selectedDate, setSelectedDate] = useState('');
+    const [selectedTimeslot, setSelectedTimeSlot] = useState('');
     const { register, handleSubmit, control,  formState: { errors } } = useForm<orderFormData>({resolver: zodResolver(CreateOrderFormSchema)});
     const router = useRouter();
     const [formSubmitted, setFormSubmitted] = useState(false);
@@ -40,10 +41,14 @@ const onSubmit: SubmitHandler<orderFormData> = async (formData) => {
     setSubmitting(true);
     const parsedCart: CartItem[] = JSON.parse(formData.cart);
     const parsedTotal: number = Number(formData.total);
+    const deliveryDate = formData.deliveryDate;
+    const deliveryTime = formData.deliveryTime;
+    const deliveryTimeSlot = `${deliveryDate} ${deliveryTime}`;
     const data: orderData = {
       ...formData,
       cart: parsedCart,
-      total: parsedTotal
+      total: parsedTotal,
+      deliveryTimeSlot:deliveryTimeSlot
 
     };
     console.log(data);
@@ -132,7 +137,7 @@ const onSubmit: SubmitHandler<orderFormData> = async (formData) => {
         <Text as='span' className='mr-5'>Delivery Date</Text> 
       
         <Controller 
-        name='deliveryTimeSlot'
+        name='deliveryDate'
         control={control} 
        
         render={({ field: { onChange, value } }) => ( 
@@ -148,7 +153,13 @@ const onSubmit: SubmitHandler<orderFormData> = async (formData) => {
         </Box>
         <Box>
         <Text as='span' className='mr-5' >Delivery Time</Text> 
-        <Select.Root>
+        <Controller 
+        name='deliveryTime'
+        control={control}
+
+        render={({field: {onChange, value}}) => (
+
+          <Select.Root value={value} onValueChange={onChange}>
             <Select.Trigger variant='soft'/>
             <Select.Content>
               <Select.Item value='10:00-11:00'>10:00-11:00</Select.Item>
@@ -160,6 +171,8 @@ const onSubmit: SubmitHandler<orderFormData> = async (formData) => {
               <Select.Item value='20:00-21:30'>20:00-21:30</Select.Item>
             </Select.Content>
         </Select.Root>
+        )}
+        />
         </Box ></Flex>
         <Box>
         <Heading>Payment Method</Heading>

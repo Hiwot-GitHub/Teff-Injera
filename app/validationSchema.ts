@@ -53,6 +53,7 @@ export const CreateOrderFormSchema = z.object({
     cart: z.string(),
     total: z.string(),
     note: z.string().optional(), 
-    deliveryTimeSlot: z.string().optional(), 
+    deliveryDate: z.string().optional(), 
+    deliveryTime:z.string().optional(),
     paymentMode: z.enum(['CASH', 'MOBILEMONEY']),
   });

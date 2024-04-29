@@ -31,7 +31,7 @@ model Order {
   cart     Json     
   total     Int
   note      String?
-  deliveryTimeSlot DateTime?
+  deliveryTimeSlot String?
   status    OrderStatus
   paymentMode PaymentMode
   
