@@ -20,6 +20,7 @@ model MenuItem{
   description String @db.Text
   price Int
   image_url String @db.VarChar(255)
+  outOfStock   Boolean @default(false)
 }
 
 model Order {
