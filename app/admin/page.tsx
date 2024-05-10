@@ -1,11 +1,13 @@
 import prisma from '@/prisma/client';
-import { Box, Heading, Table } from '@radix-ui/themes';
+import { Box, Button, Dialog, Heading, Table } from '@radix-ui/themes';
 import React from 'react'
 import { CartItem } from '../CartContext';
+import MenuItemForm from '../components/MenuItemForm';
 
 const Adminpage = async () => {
     const orders = await prisma.order.findMany();
   return (
+    <>
     <Box>
         <Heading>Orders</Heading>
         <Table.Root>
@@ -52,6 +54,8 @@ const Adminpage = async () => {
             </Table.Body>
         </Table.Root>
     </Box>
+    <MenuItemForm />
+    </>
   )
 }
 

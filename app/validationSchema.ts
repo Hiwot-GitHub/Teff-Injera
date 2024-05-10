@@ -15,6 +15,15 @@ const MenuItemSchema = z.object({
   description : z.string().min(1), 
   price : z.number().min(1),
   image_url : z.string().min(1).max(255), 
+});
+
+//clientside form validation for creating MenuItem
+export const CreateMenuItemFormSchema = z.object({
+  name : z.string().min(1).max(255),
+  amharicname : z.string().min(1),
+  description : z.string().min(1), 
+  price : z.string().min(1),
+  image_url : z.string().min(1).max(255), 
 })
 
 export const CustomerInfoSchema = z.object({
