@@ -1,12 +1,12 @@
 'use client';
 
 import { Box, Button, Dialog, Flex, Text, TextField, TextArea, Callout, Spinner } from '@radix-ui/themes'
-import { CreateMenuItemFormSchema, createMenuItemSchema } from '../validationSchema'
+import { CreateMenuItemFormSchema, createMenuItemSchema } from '../../validationSchema'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import axios from 'axios';
-import ErrorMessage from './ErrorMessage';
+import ErrorMessage from '../../components/ErrorMessage';
 import { useState } from 'react';
 
 

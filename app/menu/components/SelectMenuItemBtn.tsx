@@ -9,6 +9,11 @@ import Link  from 'next/link';
 import React, { useContext, useEffect, useState } from 'react';
 import { IoIosCloseCircleOutline } from 'react-icons/io';
 import Modal from 'react-modal';
+import { IoChevronDownSharp } from "react-icons/io5";
+import { IoIosArrowUp } from "react-icons/io";
+import { useRouter } from 'next/navigation';
+
+
 
 
 interface FirstAddToCartProps {
@@ -20,6 +25,7 @@ interface FirstAddToCartProps {
 const AddToCartModal: React.FC<FirstAddToCartProps> = ({isOpen, closeFirstModal, item}) => {
   const { openModal, addToCart } = useContext(CartContext);
   const [submitting, setSubmitting] = useState(false);
+  const [showDescription, setShowDescription] = useState(false);
 
   const handleAddToCart = () => {
     setSubmitting(true);
@@ -37,17 +43,24 @@ const AddToCartModal: React.FC<FirstAddToCartProps> = ({isOpen, closeFirstModal,
     <>
     <Modal isOpen={isOpen} onRequestClose={closeFirstModal} style={{overlay:{background: 'rgba(0,0,0,0.5)'}}} className="w-[50%] h-[100%] bg-white shadow-2xl ml-[50%]">
       
-      <Flex as='div' gap="9" align="center" className='md:text-2xl sm:text-xl py-2 '>
-                        <Text >{item.name}</Text>
-                        <Separator orientation="vertical" /> 
-                        <Text>{item.amharicname}</Text>
-                        </Flex>
-      <Blockquote>{item.description}</Blockquote>
-      <Text as='div'>{item.price.toString()}</Text>
-      <button onClick={handleAddToCart} disabled={submitting} className='bg-Grass hover:bg-AlphaGrass  w-20 h-6 rounded-full text-BoldGrass'>
+      <div className='flex-col md:text-2xl sm:text-xl py-2 bg-cover bg-center  h-[20%]' style={{backgroundImage: `url(${item.image_url})`}}>
+        <div className='mt-[50%] sm:mt-[30%] md:mt-[20%]  px-6 flex-col'>
+        <div className='m-3 p-4'>
+           <h1>{item.name}<span className='text-AlphaGrass px-3'>|</span>{item.amharicname}</h1>
+           </div>
+      <div className='bg-Grass h-auto rounded-sm text-BoldGras p-4 m-3 '>
+        <div className='flex justify-between text-xl mb-2'>Description <button onClick={() => setShowDescription(!showDescription)} className='hover:bg-AlphaGrass transition-colors'>{showDescription? <IoIosArrowUp />: <IoChevronDownSharp />}</button></div>
+        {showDescription && <div className='text-lg'>{item.description}</div>}
+      </div>
+     <div className='flex justify-between m-3 p-3 max-sm:flex-col'>
+      <div className='py-4 text-lg font-bold'>{item.price.toString()}Rwf</div>
+      <button onClick={handleAddToCart} disabled={submitting} className='bg-Grass hover:bg-AlphaGrass  w-32 h-8 rounded-full text-BoldGras max-sm:w-40'>
         Add
         {submitting && <Spinner />}
       </button>
+      </div>
+      </div>
+      </div>
     </Modal>
    
     /</>
@@ -96,6 +109,8 @@ export  default SelectMenuItemBtn
 const ShowCart = () => {
 const { cart, isModalOpen,closeModal, addToCart, removeFromCart,total, removeItemFromCart} = useContext(CartContext);
 const [isLoading, setIsLoading] = useState(false);
+const [checkoutBtnClicked, setCheckoutBtnClicked] = useState(false);
+const router = useRouter();
 
 
 const handleRemoveFromCart = (menuItemId: number) => {
@@ -111,6 +126,18 @@ const handleAddToCart = (menuItem: MenuItem) => {
   setIsLoading(false);
   
 };
+
+const handleCheckout = () => {
+  setCheckoutBtnClicked(true);
+ 
+
+  setTimeout(() => {
+    closeModal();
+    router.push('/checkout');
+    setCheckoutBtnClicked(false);
+  },1000);
+
+}
 
 
 return (
@@ -142,7 +169,8 @@ return (
     <div className='w-[40%] fixed bottom-12 border-t'>
     <div className='flex items-center justify-center pb-2'>Subtotal: {total}</div>
     <div className='w-[90%] h-8 bg-red-500 hover:bg-red-700 transition-colors rounded-full flex justify-center px-2 '>
-     <Button onClick={() => closeModal()}> <Link href='/checkout' className='text-white text-bold  '>Check out </Link></Button>
+     <Button onClick={handleCheckout}> <Link href='/checkout' className='text-white text-bold  '>Check out </Link>
+     {checkoutBtnClicked && <Spinner /> }</Button>
     </div>
     </div>
     </Modal>

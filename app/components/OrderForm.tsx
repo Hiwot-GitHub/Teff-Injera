@@ -20,21 +20,51 @@ type orderData = z.infer<typeof CreateOrderSchema>
 const OrderForm = () => {
     const {cart, total, clearCart} = useContext(CartContext);
     const [error, setError] = useState('');
-    const [selectedDate, setSelectedDate] = useState('');
     const [selectedTimeslot, setSelectedTimeSlot] = useState('');
     const { register, handleSubmit, control,  formState: { errors } } = useForm<orderFormData>({resolver: zodResolver(CreateOrderFormSchema)});
     const router = useRouter();
     const [formSubmitted, setFormSubmitted] = useState(false);
     const [submitting, setSubmitting] = useState(false);
 
+
+
     const currentDate = new Date();
+    const currentHour = currentDate.getHours();
     const tomorrowDate = new Date();
     tomorrowDate.setDate(currentDate.getDate() + 1);
+    console.log(currentHour);
 
 const deliveryDates = {
   today: currentDate.toISOString().split('T')[0], // Format: "YYYY-MM-DD"
   tomorrow: tomorrowDate.toISOString().split('T')[0], // Format: "YYYY-MM-DD"
 };
+const [selectedDate, setSelectedDate] = useState(deliveryDates.today);
+
+const timeSlots = [
+  {id: '10', 'interval': '10:00-11:00','disable': false },
+  {id: '11', 'interval': '11:00-12:00','disable':false },
+  {id: '12', 'interval': '12:00-13:00','disable':false} ,
+  {id: '13', 'interval': '13:00-14:00','disable':false },
+  {id: '14' , 'interval': '14:00-15:30','disable':false} ,
+  {id: '18','interval': '18:00-19:00','disable':false} ,
+  {id: '19', 'interval': '19:00-20:00','disable':false },
+  {id: '20','interval': '20:00-21:30','disable':false} 
+
+];
+
+const [updatedTimeSlot, setUpdatedTimeSlot] = useState(timeSlots);
+
+//a useEffect to  disable past delivery time interval if order is for today
+useEffect(() => {
+  const newTimeSlots = timeSlots.map((timeSlot) => {
+    const isPast = selectedDate === deliveryDates.today && currentHour.toString() >=  timeSlot.id;
+    return {
+     ...timeSlot,
+     disable: isPast
+    }
+  });
+  setUpdatedTimeSlot(newTimeSlots);
+},[selectedDate, currentHour]);
 
 const onSubmit: SubmitHandler<orderFormData> = async (formData) => {
   try{
@@ -141,7 +171,9 @@ const onSubmit: SubmitHandler<orderFormData> = async (formData) => {
         control={control} 
        
         render={({ field: { onChange, value } }) => ( 
-            <Select.Root value={value} onValueChange={onChange}>
+            <Select.Root value={value} onValueChange={(date) => {onChange(date);
+              setSelectedDate(date);
+            }} defaultValue={selectedDate}>
             <Select.Trigger variant='soft' />
             <Select.Content>
               <Select.Item value={deliveryDates.today}>today</Select.Item>
@@ -162,13 +194,10 @@ const onSubmit: SubmitHandler<orderFormData> = async (formData) => {
           <Select.Root value={value} onValueChange={onChange}>
             <Select.Trigger variant='soft'/>
             <Select.Content>
-              <Select.Item value='10:00-11:00'>10:00-11:00</Select.Item>
-              <Select.Item value='11:00-12:00'>11:00-12:00</Select.Item>
-              <Select.Item value='13:00-14:00'>13:00-14:00</Select.Item>
-              <Select.Item value='14:00-15:30'>14:00-15:30</Select.Item>
-              <Select.Item value='18:00-19:00'>18:00-19:00</Select.Item>
-              <Select.Item value='19:00-20:00'>19:00-20:00</Select.Item>
-              <Select.Item value='20:00-21:30'>20:00-21:30</Select.Item>
+            {updatedTimeSlot.map((timeSlot) => {
+              return <Select.Item key={timeSlot.id} value={timeSlot.interval} disabled={timeSlot.disable}>{timeSlot.interval}</Select.Item>
+    })}
+             
             </Select.Content>
         </Select.Root>
         )}

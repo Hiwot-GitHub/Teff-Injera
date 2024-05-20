@@ -2,6 +2,7 @@ import { Box, Heading,Text,Flex, Avatar, Button, AspectRatio, Card } from "@radi
 import NavBar from "./NavBar";
 import Image from "next/image";
 import Link from "next/link";
+import { SignIn } from "./components/sign-in";
 
 
 
