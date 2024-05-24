@@ -3,6 +3,7 @@ import NavBar from "./NavBar";
 import Image from "next/image";
 import Link from "next/link";
 import { SignIn } from "./components/sign-in";
+import { FaWhatsapp } from "react-icons/fa";
 
 
 
@@ -43,6 +44,9 @@ export default function Home() {
         <Avatar size="8" src="/shiro.jpeg" fallback="sils image"/>
        </Flex>
        </Flex></Box>
+       <Box className="border-t mt-8 p-8 mx-10">
+       <Flex gapX="3"><FaWhatsapp size={28} />+250791348739</Flex>
+       </Box>
     </>
   );
 }

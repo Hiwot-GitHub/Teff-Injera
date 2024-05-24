@@ -32,7 +32,7 @@ const OrderForm = () => {
     const currentHour = currentDate.getHours();
     const tomorrowDate = new Date();
     tomorrowDate.setDate(currentDate.getDate() + 1);
-    console.log(currentHour);
+
 
 const deliveryDates = {
   today: currentDate.toISOString().split('T')[0], // Format: "YYYY-MM-DD"
