@@ -26,7 +26,7 @@ export default function Home() {
      </Box>
     <Box className="z-50 ml-16" >
       
-       <Card variant="ghost" size='3' className="top-[-9vh] sm:top-[-4vh] md:top-[12vh] lg:top-[48vh] w-[20rem] h-[18rem] z-50 ml-2 border-b border-l border-t border-r "><Heading m="2">Welcome!</Heading>
+       <Card variant="ghost" size='3' className="top-[-28vh] sm:top-[-12vh] md:top-[4vh] lg:top-[16vh] w-[20rem] h-[18rem] z-50 ml-2 border-b border-l border-t border-r "><Heading m="2">Welcome!</Heading>
        <Text size='4' as="div" className="mb-8 ">Teff Injera is Home based kitchen that serves delicious Ethiopian cuisine in Kigali, <strong>our Injera is made from 100% Teff flour</strong>.  </Text>
        
        <Button variant="soft" size='4' className="mt-20">
