@@ -162,7 +162,7 @@ const onSubmit: SubmitHandler<orderFormData> = async (formData) => {
         })}
         <Text as='div'>Total:{total}</Text>
         <Heading size='1' mb='4'>Choose delivery time?</Heading>
-        <Flex direction="column"gap="5" >
+        <Flex direction="column" gap="5">
          <Box>
         <Text as='span' className='mr-5'>Delivery Date</Text> 
       
@@ -203,8 +203,8 @@ const onSubmit: SubmitHandler<orderFormData> = async (formData) => {
         )}
         />
         </Box ></Flex>
-        <Box>
-        <Heading>Payment Method</Heading>
+        <Box mb="8">
+        <Heading my="2">Payment Method</Heading>
         <Controller
         name="paymentMode"
         defaultValue="MOBILEMONEY"
@@ -220,7 +220,7 @@ const onSubmit: SubmitHandler<orderFormData> = async (formData) => {
     
         <Text as='label' className='py-5 text-xl'>Total: {total}</Text>
         </Box> 
-        <Button type="submit" disabled={submitting}>Place Order
+        <Button type="submit" disabled={submitting} variant='solid' size='4' className='m-8'>Place Order
         {submitting && <Spinner />}</Button>
     </Box>
     </Grid>
