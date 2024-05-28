@@ -221,7 +221,8 @@ const onSubmit: SubmitHandler<orderFormData> = async (formData) => {
         <Text as='label' className='py-5 text-xl'>Total: {total}</Text>
         </Box> 
         
-        <button type="submit" disabled={submitting}  className='m-8 w-40 h-16 bg-SolidGrass px-6 text-white rounded-md'>Place Order
+        <button type="submit" disabled={submitting}  style={{
+        backgroundColor: '#46A758'}} className='m-8 w-40 h-16 px-6 text-white rounded-md'>Place Order
         {submitting && <Spinner />}</button>
         
     </Box>
