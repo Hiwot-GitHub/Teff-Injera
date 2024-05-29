@@ -21,6 +21,7 @@ const config: Config = {
         BoldGras: '#2A7E3B',
         LightGrass: '#F5FBF5',
         Grass:'#E9F6E9',
+        SolidGrass: '#46A758',
         AlphaGrass: '#008F0A4D',
       },
     },

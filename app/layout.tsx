@@ -1,7 +1,7 @@
 import '@radix-ui/themes/styles.css';
+import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
 import { Container, Theme } from '@radix-ui/themes';
 import NavBar from './NavBar';
 import { CartProvider } from './CartContext';
