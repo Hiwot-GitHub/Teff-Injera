@@ -48,8 +48,8 @@ const AddToCartModal: React.FC<FirstAddToCartProps> = ({isOpen, closeFirstModal,
         <div className='m-3 p-4'>
            <h1>{item.name}<span className='text-AlphaGrass px-3'>|</span>{item.amharicname}</h1>
            </div>
-      <div className='bg-Grass h-auto rounded-sm text-BoldGras p-4 m-3 '>
-        <div className='flex justify-between text-xl mb-2'>Description <button onClick={() => setShowDescription(!showDescription)} className='hover:bg-AlphaGrass transition-colors'>{showDescription? <IoIosArrowUp />: <IoChevronDownSharp />}</button></div>
+      <div className='bg-Grass h-auto rounded-sm text-BoldGras p-4 m-3 max-sm:w-[50%]'>
+        <div className='flex justify-between text-xl mb-2 '>Description <button onClick={() => setShowDescription(!showDescription)} className='hover:bg-AlphaGrass transition-colors'>{showDescription? <IoIosArrowUp />: <IoChevronDownSharp />}</button></div>
         {showDescription && <div className='text-lg'>{item.description}</div>}
       </div>
      <div className='flex justify-between m-3 p-3 max-sm:flex-col'>
