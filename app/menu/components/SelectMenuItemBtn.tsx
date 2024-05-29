@@ -41,7 +41,7 @@ const AddToCartModal: React.FC<FirstAddToCartProps> = ({isOpen, closeFirstModal,
 
   return(
     <>
-    <Modal isOpen={isOpen} onRequestClose={closeFirstModal} style={{overlay:{background: 'rgba(0,0,0,0.5)'}}} className="w-[50%] h-[100%] bg-white shadow-2xl ml-[50%]">
+    <Modal isOpen={isOpen} onRequestClose={closeFirstModal} style={{overlay:{background: 'rgba(0,0,0,0.5)'}}} className="w-[80%] sm:w-[50%] h-[100%] bg-white shadow-2xl ml-[50%]">
       
       <div className='flex-col md:text-2xl sm:text-xl py-2 bg-cover bg-center  h-[20%]' style={{backgroundImage: `url(${item.image_url})`}}>
         <div className='mt-[50%] sm:mt-[30%] md:mt-[20%]  px-6 flex-col'>
@@ -142,7 +142,7 @@ const handleCheckout = () => {
 
 return (
   <Box>
-    <Modal isOpen={isModalOpen} onRequestClose={closeModal} style={{overlay:{background: 'rgba(0,0,0,0.05)'}}} className="w-[40%] h-[100%] bg-white shadow-2xl ml-[60%] pl-4">
+    <Modal isOpen={isModalOpen} onRequestClose={closeModal} style={{overlay:{background: 'rgba(0,0,0,0.05)'}}} className="w-[60%] sm:w-[40%] h-[100%] bg-white shadow-2xl ml-[60%] pl-4">
       <Heading as='h1' style={{fontSize: '2rem'}} className='border-b text-BlackRussian font-thin h-16 text-center'>Your order</Heading>
       <div style={{ maxHeight: '235px', overflowY: 'auto' }}>
       {cart.map(item => (
