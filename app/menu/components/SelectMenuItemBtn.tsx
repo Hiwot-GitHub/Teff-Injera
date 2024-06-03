@@ -142,7 +142,7 @@ const handleCheckout = () => {
 
 return (
   <Box>
-    <Modal isOpen={isModalOpen} onRequestClose={closeModal} style={{overlay:{background: 'rgba(0,0,0,0.05)'}}} className="w-[60%] sm:w-[40%] h-[100%] bg-white shadow-2xl ml-[40%] sm:ml-[60%] pl-4">
+    <Modal isOpen={isModalOpen} onRequestClose={closeModal} style={{overlay:{background: 'rgba(0,0,0,0.05)'}}} className="w-[80%] sm:w-[40%] h-[100%] bg-white shadow-2xl ml-[20%] sm:ml-[60%] pl-4">
       <Heading as='h1' style={{fontSize: '2rem'}} className='border-b text-BlackRussian font-thin h-16 text-center'>Your order</Heading>
       <div style={{ maxHeight: '235px', overflowY: 'auto' }}>
       {cart.map(item => (
