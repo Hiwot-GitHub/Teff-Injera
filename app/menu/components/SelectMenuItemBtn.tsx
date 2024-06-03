@@ -166,7 +166,7 @@ return (
         </Box>
       ))}
     </div>
-    <div className='w-[40%] fixed bottom-12 border-t'>
+    <div className='w-[50%] sm:w-[40%] fixed bottom-12 border-t'>
     <div className='flex items-center justify-center pb-2'>Subtotal: {total}</div>
     <div className='w-[90%] h-8 bg-red-500 hover:bg-red-700 transition-colors rounded-full flex justify-center px-2 '>
      <Button onClick={handleCheckout}> <Link href='/checkout' className='text-white text-bold  '>Check out </Link>
