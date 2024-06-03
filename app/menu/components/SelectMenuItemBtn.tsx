@@ -48,13 +48,13 @@ const AddToCartModal: React.FC<FirstAddToCartProps> = ({isOpen, closeFirstModal,
         <div className='m-3 p-4'>
            <h1>{item.name}<span className='text-AlphaGrass px-3'>|</span>{item.amharicname}</h1>
            </div>
-      <div className='bg-Grass h-auto rounded-sm text-BoldGras p-4 m-3 max-sm:w-[60%]'>
+      <div className='bg-Grass h-auto rounded-sm text-BoldGras p-4 m-3 max-sm:w-[80%]'>
         <div className='flex justify-between text-xl mb-2 '>Description <button onClick={() => setShowDescription(!showDescription)} className='hover:bg-AlphaGrass transition-colors'>{showDescription? <IoIosArrowUp />: <IoChevronDownSharp />}</button></div>
         {showDescription && <div className='text-lg'>{item.description}</div>}
       </div>
      <div className='flex justify-between m-3 p-3 max-sm:flex-col'>
       <div className='py-4 text-lg font-bold'>{item.price.toString()}Rwf</div>
-      <button onClick={handleAddToCart} disabled={submitting} className='bg-Grass hover:bg-AlphaGrass  w-32 h-8 rounded-full text-BoldGras max-sm:w-40'>
+      <button onClick={handleAddToCart} disabled={submitting} className='bg-Grass hover:bg-AlphaGrass  w-32 h-8 rounded-full text-BoldGras max-sm:w-60'>
         Add
         {submitting && <Spinner />}
       </button>
