@@ -3,6 +3,11 @@ import { NextRequest, NextResponse } from "next/server";
 import { CreateOrderSchema } from "@/app/validationSchema";
 
 
+export async function GET(request: NextRequest){
+    const orders = await prisma.order.findMany();
+    return NextResponse.json(orders);
+}
+
 export async function POST(request: NextRequest) {
     const body = await request.json();
 

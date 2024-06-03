@@ -4,6 +4,12 @@ import prisma from "@/prisma/client";
 import  { createMenuItemSchema} from '@/app/validationSchema'
 
 
+export async function GET(request: NextRequest){
+  const menuItems = await prisma.menuItem.findMany();
+  return NextResponse.json(menuItems);
+}
+
+
 export async function POST(request: NextRequest) {
     const body = await request.json();
     const validation = createMenuItemSchema.safeParse(body);
