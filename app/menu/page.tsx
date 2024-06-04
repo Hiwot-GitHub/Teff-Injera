@@ -2,6 +2,12 @@ import prisma from '@/prisma/client'
 import { Blockquote, Box, Card, Flex, Grid, Separator, Text } from '@radix-ui/themes'
 import Image from 'next/image'
 import SelectMenuItemBtn from './components/SelectMenuItemBtn'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+    title:'Teff Injera-Menu',
+    description: 'order online'
+  }
 
 const page = async() => {
     const menuitems = await prisma.menuItem.findMany();
