@@ -44,7 +44,6 @@ export default function Home() {
         <Avatar size="8" src="/sils.jpeg" fallback="sils image" className="right-0"/>
         <Avatar size="8" src="/pot.jpeg" fallback="pot image"  />
         <Avatar size="8" src="/salad.jpeg" fallback="sils image"/>
-        <Avatar size="8" src="/shiro.jpeg" fallback="sils image"/>
        </Flex>
        </Flex></Box>
    
