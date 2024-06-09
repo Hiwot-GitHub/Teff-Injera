@@ -2,6 +2,7 @@
 
 import prisma from '@/prisma/client';
 import MenuItemForm from './components/MenuItemForm';
+import { useSession } from 'next-auth/react';
 import ViewOrder from './components/View-orders';
 import axios from 'axios';
 import { Order } from '@prisma/client';
@@ -9,7 +10,24 @@ import { useState, useEffect } from 'react'
 
 
 const Adminpage = () => {
+  const { data: session } = useSession();
+  const [isAdmin, setIsAdmin] = useState(false);
    const [orders, setOrders] = useState<Order[]>([]);
+
+   useEffect(() => {
+    const checkUserRole = async () => {
+      try {
+        if (session?.user?.role !== 'USER') {
+          setIsAdmin(true);
+        }
+      } catch (error) {
+        console.error('Error checking user role:', error);
+      }
+    };
+
+    checkUserRole();
+  }, [session]);
+   
 
   useEffect(() => {
     const getOrders = async () => {
@@ -39,8 +57,12 @@ const Adminpage = () => {
    
   return (
     <>
-    <ViewOrder orders={orders} />
-    <MenuItemForm />
+    { isAdmin && ( <>
+               <ViewOrder orders={orders} />
+               <MenuItemForm />
+              </>)
+  }
+  { !isAdmin && <p>You are not authorized </p>}
     </>
   )
 }
