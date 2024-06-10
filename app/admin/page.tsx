@@ -2,11 +2,12 @@
 
 import prisma from '@/prisma/client';
 import MenuItemForm from './components/MenuItemForm';
-import { useSession } from 'next-auth/react';
+import { useSession, signOut } from 'next-auth/react';
 import ViewOrder from './components/View-orders';
 import axios from 'axios';
 import { Order } from '@prisma/client';
 import { useState, useEffect } from 'react'
+import { Button } from '@radix-ui/themes';
 
 
 const Adminpage = () => {
@@ -52,6 +53,11 @@ const Adminpage = () => {
     getOrders();
 
   },[])
+
+  const handleLogout = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    signOut();
+  };
   
 
    
@@ -60,6 +66,7 @@ const Adminpage = () => {
     { isAdmin ?( <>
                <ViewOrder orders={orders} />
                <MenuItemForm />
+               <Button onClick={handleLogout} >Logout</Button>
               </>):<p>You are not authorized </p>
   }
     </>
