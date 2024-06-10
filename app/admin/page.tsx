@@ -18,7 +18,7 @@ const Adminpage = () => {
    useEffect(() => {
     const checkUserRole = async () => {
       try {
-        if (session?.user?.role !== 'USER') {
+        if (session?.user?.role === 'Admin') {
           setIsAdmin(true);
         }
       } catch (error) {
@@ -67,11 +67,13 @@ const Adminpage = () => {
    
   return (
     <>
-    { isAdmin ?( <>
+    {session && isAdmin && ( <>
                <ViewOrder orders={orders} />
                <MenuItemForm />
-              </>):<p>You are not authorized </p>
+              </>)
   }
+      {session && !isAdmin && <p>You are not authorized</p>}
+      {!session && <p>Please log in to access this page</p>} 
       <Button onClick={handleLogout} >
                {status === 'authenticated' ? 'Logout' : 'Login'}
                </Button>
