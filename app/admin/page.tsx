@@ -57,12 +57,11 @@ const Adminpage = () => {
    
   return (
     <>
-    { isAdmin && ( <>
+    { isAdmin ?( <>
                <ViewOrder orders={orders} />
                <MenuItemForm />
-              </>)
+              </>):<p>You are not authorized </p>
   }
-  { !isAdmin && <p>You are not authorized </p>}
     </>
   )
 }
