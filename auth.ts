@@ -21,7 +21,19 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: PrismaAdapter(prisma),
   providers: [
     Google({
-      profile(profile) {
+      async profile(profile) {
+        const existingUser = await prisma.user.findUnique({
+          where: { email: profile.email },
+        });
+        if (existingUser) {
+          return {
+            id: existingUser.id,
+            name: existingUser.name,
+            email: existingUser.email,
+            image: existingUser.image,
+            role: existingUser.role,
+          };
+        }
         return {
           id: profile.sub,
           name: profile.name,
