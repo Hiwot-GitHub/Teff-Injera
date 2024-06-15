@@ -29,7 +29,7 @@ export default function Home() {
      </Box>
     <Box className="z-50  ml-16 " >
       
-       <Card variant="ghost" size='3' className="top-[-32vh] sm:top-[-16vh] md:top-[4vh] lg:top-[16vh] max-sm:w-[20rem] max-sm:h-[22rem]  w-[25rem] h-[20rem]  z-50 ml-2 border-b border-l border-t border-r "><Heading m="2">Welcome!</Heading>
+       <Card variant="ghost" size='3' className="top-[-30vh] sm:top-[-14vh] md:top-[4vh] lg:top-[16vh] max-sm:w-[20rem] max-sm:h-[22rem]  w-[25rem] h-[20rem]  z-50 ml-2 border-b border-l border-t border-r "><Heading m="2">Welcome!</Heading>
        <Text size='4' as="div" className="mb-8 ">We are home based kitchen serving savory Ethiopian cuisine in Kigali.We deliver your orders to your preferred address. <strong>Our injera is made of 100% teff flour</strong>.  </Text>
        
        <Button variant="soft" size='4' className="mt-2">
