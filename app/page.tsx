@@ -27,7 +27,7 @@ export default function Home() {
     
      </AspectRatio>
      </Box>
-    <Box className="z-50 ml-16" >
+    <Box className="z-50 sm:ml-2 ml-16 " >
       
        <Card variant="ghost" size='3' className="top-[-28vh] sm:top-[-12vh] md:top-[4vh] lg:top-[16vh] sm:w-[20rem] sm:h-[18rem] sm:ml-1 w-[25rem] h-[20rem]  z-50 ml-2 border-b border-l border-t border-r "><Heading m="2">Welcome!</Heading>
        <Text size='4' as="div" className="mb-8 ">We are home based kitchen serving savory Ethiopian cuisine in Kigali.We deliver your orders to your preferred address. <strong>Our injera is made of 100% teff flour</strong>.  </Text>
