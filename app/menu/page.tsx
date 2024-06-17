@@ -6,7 +6,8 @@ import { Metadata } from 'next'
 
 export const metadata: Metadata = {
     title:'Teff Injera-Menu',
-    description: 'order online'
+    description: 'order online premium Ethiopian cuisine cooked with fresh, high quality  ingredients and home paced cooking method',
+    keywords:'Ethiopian cuisines,Eritrean food vegiterian platter, meat combination  '
   }
 
 const page = async() => {
@@ -18,7 +19,7 @@ const page = async() => {
             <Box width={{ xs: '40vw', md: '30vw'  }} key={menuitem.id} maxWidth={{xs: '40vw', md: '30vw', lg: '25vw'}}>
             <Card>
                 <Flex  direction='column'>
-                    <Image src={menuitem.image_url} alt='food' layout='responsive' width='220' height="160" />
+                    <Image src={menuitem.image_url} alt='Ethiopian cuisine' layout='responsive' width='220' height="160" />
                     <Box className='bg-white'>
                         <Box className='h-48'>
                         <Flex as='div' gap="2" align="center" className='md:text-2xl sm:text-xl py-2 '>
