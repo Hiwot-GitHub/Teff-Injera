@@ -8,7 +8,8 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title:'Teff Injera-Home',
-  description: 'order-ethiopian food in Kigali, Rwanda'
+  description: 'order Ethiopian food in Kigali, Rwanda',
+  keywords:'Ethiopian restuarant,Eritrean food , Habesha restuarants Injera'
 }
 export default function Home() {
   return (
@@ -49,7 +50,7 @@ export default function Home() {
        </Flex></Box>
    
        <Box className="border-t mt-8 p-8 mx-10">
-       <Flex gapX="3"><FaWhatsapp size={28} />+250791348739</Flex>
+       <Flex gapX="3"><FaWhatsapp size={28} /><input type="tel">0791348739</input></Flex>
        </Box>
     </>
   );
