@@ -50,7 +50,7 @@ export default function Home() {
        </Flex></Box>
    
        <Box className="border-t mt-8 p-8 mx-10">
-       <Flex gapX="3"><FaWhatsapp size={28} /><input type="tel">0791348739</input></Flex>
+       <Flex gapX="3"><FaWhatsapp size={28} /><a href="tel:0791348739">0791348739</a></Flex>
        </Box>
     </>
   );
