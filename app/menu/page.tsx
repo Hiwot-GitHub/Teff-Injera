@@ -3,15 +3,29 @@ import { Blockquote, Box, Card, Flex, Grid, Separator, Text } from '@radix-ui/th
 import Image from 'next/image'
 import SelectMenuItemBtn from './components/SelectMenuItemBtn'
 import { Metadata } from 'next'
+import { MenuItem } from '@prisma/client'
 
 export const metadata: Metadata = {
     title:'Teff Injera-Menu',
     description: 'order online premium Ethiopian cuisine cooked with fresh, high quality  ingredients and home paced cooking method',
     keywords:'Ethiopian cuisines,Eritrean food vegiterian platter, meat combination  '
   }
+  async function getMenuItems() {
+    const res = await fetch('/api/order')
+    // The return value is *not* serialized
+    // You can return Date, Map, Set, etc.
+   
+    if (!res.ok) {
+      // This will activate the closest `error.js` Error Boundary
+      throw new Error('Failed to fetch data')
+    }
+      const data: MenuItem[] = await res.json()
+    return data;
+  }
 
 const page = async() => {
-    const menuitems = await prisma.menuItem.findMany();
+    const menuitems = await getMenuItems();
+
   return (
     <>
     <Grid columns={{initial:'1', xs:'2', md:'3'}} gapX='1' gapY='8' className='p-8' justify="center"align="center">
