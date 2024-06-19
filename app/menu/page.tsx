@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     keywords:'Ethiopian cuisines,Eritrean food vegiterian platter, meat combination  '
   }
   async function getMenuItems() {
-    const res = await fetch('/api/order')
+    const res = await fetch('/api/menuitem')
     // The return value is *not* serialized
     // You can return Date, Map, Set, etc.
    
