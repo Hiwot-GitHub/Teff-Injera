@@ -2,7 +2,7 @@ import prisma from '@/prisma/client'
 import { Blockquote, Box, Card, Flex, Grid, Separator, Text } from '@radix-ui/themes'
 import Image from 'next/image'
 import SelectMenuItemBtn from './components/SelectMenuItemBtn'
-import { Metadata, GetStaticProps } from 'next'
+import { Metadata } from 'next'
 import { MenuItem } from '@prisma/client'
 
 export const metadata: Metadata = {
@@ -11,25 +11,21 @@ export const metadata: Metadata = {
     keywords:'Ethiopian cuisines,Eritrean food vegiterian platter, meat combination  '
   }
 
-  export const getStaticProps: GetStaticProps = async () => {
-    const res = await fetch('https://teff-injera.app/api/menuitem');
-    const menuitems: MenuItem[] = await res.json();
-  
-    return {
-      props: {
-        menuitems,
-      },
-      revalidate: 43200, // Revalidate the page every 60 seconds
-    };
-  };
-  
-  
-  interface MenuPageProps {
-    menuitems: MenuItem[];
+ 
+  async function getMenuItems() {
+    const res = await fetch('https://teff-injera.app/api/menuitem', { next: { revalidate: 43200 } });
+   
+    if (!res.ok) {
+      // This will activate the closest `error.js` Error Boundary
+      throw new Error('Failed to fetch data')
+    }
+      const data: MenuItem[] = await res.json()
+    return data;
   }
 
 
-  const MenuPage: React.FC<MenuPageProps> = ({ menuitems })=> {
+  const MenuPage = async ()=> {
+    const menuitems = await getMenuItems();
 
   return (
     <>
