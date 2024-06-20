@@ -2,7 +2,7 @@ import prisma from '@/prisma/client'
 import { Blockquote, Box, Card, Flex, Grid, Separator, Text } from '@radix-ui/themes'
 import Image from 'next/image'
 import SelectMenuItemBtn from './components/SelectMenuItemBtn'
-import { Metadata } from 'next'
+import { Metadata, GetStaticProps } from 'next'
 import { MenuItem } from '@prisma/client'
 
 export const metadata: Metadata = {
@@ -10,21 +10,26 @@ export const metadata: Metadata = {
     description: 'order online premium Ethiopian cuisine cooked with fresh, high quality  ingredients and home paced cooking method',
     keywords:'Ethiopian cuisines,Eritrean food vegiterian platter, meat combination  '
   }
-  async function getMenuItems() {
-    const res = await fetch('https://teff-injera.app/api/menuitem')
-    // The return value is *not* serialized
-    // You can return Date, Map, Set, etc.
-   
-    if (!res.ok) {
-      // This will activate the closest `error.js` Error Boundary
-      throw new Error('Failed to fetch data')
-    }
-      const data: MenuItem[] = await res.json()
-    return data;
+
+  export const getStaticProps: GetStaticProps = async () => {
+    const res = await fetch('https://teff-injera.app/api/menuitem');
+    const menuitems: MenuItem[] = await res.json();
+  
+    return {
+      props: {
+        menuitems,
+      },
+      revalidate: 43200, // Revalidate the page every 60 seconds
+    };
+  };
+  
+  
+  interface MenuPageProps {
+    menuitems: MenuItem[];
   }
 
-const page = async() => {
-    const menuitems = await getMenuItems();
+
+  const MenuPage: React.FC<MenuPageProps> = ({ menuitems })=> {
 
   return (
     <>
@@ -59,5 +64,5 @@ const page = async() => {
 }
 
 
-export default page
+export default MenuPage
 
