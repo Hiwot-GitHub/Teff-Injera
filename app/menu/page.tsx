@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
  
   async function getMenuItems() {
-    const res = await fetch('https://teff-injera.app/api/menuitem', { next: { revalidate: 43200 } });
+    const res = await fetch('https://www.teff-injera.app/api/menuitem', { next: { revalidate: 3600 } });
    
     if (!res.ok) {
       // This will activate the closest `error.js` Error Boundary
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   }
 
 
-  const MenuPage = async ()=> {
+  const MenuPage = async () => {
     const menuitems = await getMenuItems();
 
   return (
