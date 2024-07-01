@@ -152,13 +152,13 @@ return (
         <IoIosCloseCircleOutline size={20} className='text-transparent hover:text-blue-100  hover:bg-black  hover:rounded-full absolute' />
         </Button>
         <h1 style={{fontSize: '16px'}}  className='pt-0 pb-4 text-3xl font-bold text-BlackRussian dark:text-white'>{item.menuItem?.name}</h1>
-        <div className='flex bg-white dark:bg-Grass dark:text-BoldGras'>
-        <button onClick={() => handleRemoveFromCart(item.menuItem.id)} className='w-8 h-8  hover:bg-slate-300 rounded-l-full border-l-2 border-y-2'>
+        <div className='flex'>
+        <button onClick={() => handleRemoveFromCart(item.menuItem.id)} className='w-8 h-8  bg-white dark:bg-Grass dark:text-BoldGras hover:bg-slate-300 rounded-l-full border-l-2 border-y-2'>
         {isLoading && <Spinner />}
                 {"-"}
         </button>
-        <div className='w-8 h-8 px-2 align-middle border-y-2'>{item.quantity}</div>
-        <button onClick={() => handleAddToCart(item.menuItem)} className='w-8 h-8  hover:bg-slate-300 rounded-r-full border-r-2 border-y-2'>
+        <div className='w-8 h-8  bg-white dark:bg-Grass dark:text-BoldGras px-2 align-middle border-y-2'>{item.quantity}</div>
+        <button onClick={() => handleAddToCart(item.menuItem)} className='w-8 h-8  bg-white dark:bg-Grass dark:text-BoldGras hover:bg-slate-300 rounded-r-full border-r-2 border-y-2'>
         {isLoading && <Spinner />}
                 {"+"}
         </button>
