@@ -143,7 +143,7 @@ const handleCheckout = () => {
 return (
   <Box>
     <Modal isOpen={isModalOpen} onRequestClose={closeModal} style={{overlay:{background: 'rgba(0,0,0,0.05)'}}} className="w-[60%] sm:w-[40%] h-[100%] bg-white dark:bg-Charchol shadow-2xl ml-[40%] sm:ml-[60%] pl-4">
-      <Heading as='h1' style={{fontSize: '2rem'}} className='border-b text-BlackRussian font-thin h-16 text-center'>Your order</Heading>
+      <h1 style={{fontSize: '2rem'}} className='border-b text-BlackRussian  dark:text-white font-thin h-16 text-center'>Your order</h1>
       <div style={{ maxHeight: '235px', overflowY: 'auto' }}>
       {cart.map(item => (
         <Box key={item.menuItem?.id} className='border-b  py-2'>
@@ -151,14 +151,14 @@ return (
         <IoIosCloseCircleOutline size={20} className='text-black' />
         <IoIosCloseCircleOutline size={20} className='text-transparent hover:text-blue-100  hover:bg-black  hover:rounded-full absolute' />
         </Button>
-        <Heading style={{fontSize: '16px'}}  className='pt-0 pb-4 text-3xl font-bold text-BlackRussian'>{item.menuItem?.name}</Heading>
-        <div className='flex'>
-        <button onClick={() => handleRemoveFromCart(item.menuItem.id)} className='w-8 h-8 bg-white hover:bg-slate-300 rounded-l-full border-l-2 border-y-2'>
+        <h1 style={{fontSize: '16px'}}  className='pt-0 pb-4 text-3xl font-bold text-BlackRussian dark:text-white'>{item.menuItem?.name}</h1>
+        <div className='flex bg-white dark:bg-Grass dark:text-BoldGras'>
+        <button onClick={() => handleRemoveFromCart(item.menuItem.id)} className='w-8 h-8  hover:bg-slate-300 rounded-l-full border-l-2 border-y-2'>
         {isLoading && <Spinner />}
                 {"-"}
         </button>
-        <div className='w-8 h-8 bg-white  px-2 align-middle border-y-2'>{item.quantity}</div>
-        <button onClick={() => handleAddToCart(item.menuItem)} className='w-8 h-8 bg-white violet-50  hover:bg-slate-300 rounded-r-full border-r-2 border-y-2'>
+        <div className='w-8 h-8 px-2 align-middle border-y-2'>{item.quantity}</div>
+        <button onClick={() => handleAddToCart(item.menuItem)} className='w-8 h-8  hover:bg-slate-300 rounded-r-full border-r-2 border-y-2'>
         {isLoading && <Spinner />}
                 {"+"}
         </button>
