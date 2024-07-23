@@ -34,7 +34,7 @@ export const metadata: Metadata = {
             <Box width={{ xs: '40vw', md: '30vw'  }} key={menuitem.id} maxWidth={{xs: '40vw', md: '30vw', lg: '25vw'}}>
             <Card>
                 <Flex  direction='column'>
-                    <Image src={menuitem.image_url} alt='Ethiopian cuisine' layout='responsive' width='220' height="160" />
+                    <Image src={menuitem.image_url} alt={menuitem.name} layout='responsive' width='220' height="160" />
                     <Box>
                         <Box className='h-48'>
                         <Flex as='div' gap="2" align="center" className='md:text-2xl sm:text-xl py-2 '>
