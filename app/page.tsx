@@ -17,7 +17,7 @@ export default function Home() {
      <Box as="div" height="420px">
      <AspectRatio ratio={16 / 8 }>
   
-      <img src="/yesombeyaynet.jpeg" alt='Beyaynetu'
+      <img src="/Beyaynet.jpeg" alt='Beyaynetu'
      style={{
       objectFit: 'cover',
        width: '100%',
