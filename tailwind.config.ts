@@ -23,6 +23,7 @@ const config: Config = {
         Grass:'#E9F6E9',
         SolidGrass: '#46A758',
         AlphaGrass: '#008F0A4D',
+        VeryPaleYellow: '#ffffed',
       },
     },
   },
