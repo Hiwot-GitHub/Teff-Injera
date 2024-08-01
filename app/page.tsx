@@ -7,7 +7,7 @@ import { FaWhatsapp } from "react-icons/fa";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title:'Teff Injera-Home',
+  title:'Ethiopian cuisine',
   description: 'order Ethiopian food in Kigali, Rwanda',
   keywords:'Ethiopian restuarant,Eritrean food , Habesha restuarants Injera'
 }
@@ -17,7 +17,7 @@ export default function Home() {
      <Box as="div" height="420px">
      <AspectRatio ratio={16 / 8 }>
   
-      <img src="/carrotsalad.jpeg" alt='carrot salad'
+      <img src="/yesombeyaynet.jpeg" alt='Beyaynetu'
      style={{
       objectFit: 'cover',
        width: '100%',
