@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { SignIn } from "./components/sign-in";
 import { FaWhatsapp } from "react-icons/fa";
+import { IoCall } from "react-icons/io5";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -50,7 +51,8 @@ export default function Home() {
        </Flex></Box>
    
        <Box className="border-t mt-8 p-8 mx-10">
-       <Flex gapX="3"><FaWhatsapp size={28} /><a href="tel:0791348739">0791348739</a></Flex>
+       <Flex gapX="3"><a href="tel:0791348739"><FaWhatsapp size={28} /><IoCall size={28} /></a></Flex>
+       <Flex gapX="3"><a href="https://wa.me/+250791348739"><FaWhatsapp size={28} /></a></Flex>
        </Box>
     </>
   );
