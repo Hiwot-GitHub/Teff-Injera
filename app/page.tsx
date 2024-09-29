@@ -44,15 +44,17 @@ export default function Home() {
        <Flex justify="between" className="z-50">
         <Box></Box>
         <Flex gapX="3" className=" z-50" >
-        <Avatar size="8" src="/sils.jpeg" fallback="sils image" className="right-0"/>
-        <Avatar size="8" src="/pot.jpeg" fallback="pot image"  />
-        <Avatar size="8" src="/salad.jpeg" fallback="sils image"/>
+        <Avatar  src="/sils.jpeg" fallback="sils image" className="w-4 h-4 xs:w-6 xs:h-6 md:w-8 md:h-8 right-0"/>
+        <Avatar  src="/pot.jpeg" fallback="pot image" className="w-4 h-4 xs:w-6 xs:h-6 md:w-8 md:h-8"  />
+        <Avatar  src="/salad.jpeg" fallback="sils image"className="w-4 h-4 xs:w-6 xs:h-6 md:w-8 md:h-8" />
        </Flex>
        </Flex></Box>
    
        <Box className="border-t mt-8 p-8 mx-10">
-       <Flex gapX="3"><a href="tel:0791348739"><FaWhatsapp size={28} /><IoCall size={28} /></a></Flex>
-       <Flex gapX="3"><a href="https://wa.me/+250791348739"><FaWhatsapp size={28} /></a></Flex>
+       <Flex gapX="3">
+        <a href="tel:0791348739"><IoCall size={28} /></a>
+        <a href="https://wa.me/+250791348739"><FaWhatsapp size={28} /></a>
+      </Flex>
        </Box>
     </>
   );
