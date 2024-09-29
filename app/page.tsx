@@ -51,9 +51,9 @@ export default function Home() {
        </Flex></Box>
    
        <Box className="border-t mt-8 p-8 mx-10">
-       <Flex gapX="3">
+       <Flex gapX="6">
         <a href="tel:0791348739"><IoCall size={28} /></a>
-        <a href="https://wa.me/+250791348739"><FaWhatsapp size={28} /></a>
+        <a href="https://wa.me/+250791348739"><FaWhatsapp size={36} /></a>
       </Flex>
        </Box>
     </>
