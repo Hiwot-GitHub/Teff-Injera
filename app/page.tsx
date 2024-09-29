@@ -44,9 +44,9 @@ export default function Home() {
        <Flex justify="between" className="z-50">
         <Box></Box>
         <Flex gapX="3" className=" z-50" >
-        <Avatar  src="/sils.jpeg" fallback="sils image" className="w-4 h-4 xs:w-6 xs:h-6 md:w-8 md:h-8 right-0"/>
-        <Avatar  src="/pot.jpeg" fallback="pot image" className="w-4 h-4 xs:w-6 xs:h-6 md:w-8 md:h-8"  />
-        <Avatar  src="/salad.jpeg" fallback="sils image"className="w-4 h-4 xs:w-6 xs:h-6 md:w-8 md:h-8" />
+        <Avatar  src="/sils.jpeg" fallback="sils image" className="w-16 h-16 xs:w-24 xs:h-24 md:w-36 md:h-36 right-0"/>
+        <Avatar  src="/pot.jpeg" fallback="pot image" className="w-16 h-16 xs:w-24 xs:h-24 md:w-36 md:h-36"  />
+        <Avatar  src="/salad.jpeg" fallback="sils image"className="w-16 h-16 xs:w-24 xs:h-24 md:w-36 md:h-36" />
        </Flex>
        </Flex></Box>
    
