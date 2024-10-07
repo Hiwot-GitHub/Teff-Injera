@@ -73,13 +73,13 @@ const Adminpage = () => {
 
    // Request notification permission and get the FCM token
    useEffect(() => {
-    if (typeof window !== 'undefined' && isAdmin) {
+   if (typeof window !== 'undefined' && isAdmin) {
     const requestPermission = async () => {
       const permission = await Notification.requestPermission();
       if (permission === "granted") {
         console.log("Notification permission granted.");
         try {
-          const token = await getToken(messaging, { vapidKey: "BEyh32Mg2fDEecll58zX9G47mGAYQfQsGLAIurDmwGakPd6bI7AZUlkC9w2__oVRgwdOUdKq9OmUW_zU4H71-xE" });
+          const token = await getToken(messaging, { vapidKey:  process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY });
           console.log("FCM Token:", token);
           // Optionally send this token to your server to use it for push notifications
           sendNotification(token, 'New Order Received', 'A new order has just been placed.');
