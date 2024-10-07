@@ -56,9 +56,24 @@ const Adminpage = () => {
 
   },[])
 
+    // Send Notification to the server
+    const sendNotification = async (token: string, title: string, body: string) => {
+      try {
+        const response = await axios.post('/api/notification', {
+          token,
+          title,
+          body,
+        });
+        console.log('Notification sent:', response.data);
+      } catch (error) {
+        console.error('Error sending notification:', error);
+      }
+    };
+
 
    // Request notification permission and get the FCM token
    useEffect(() => {
+    if (typeof window !== 'undefined' && isAdmin) {
     const requestPermission = async () => {
       const permission = await Notification.requestPermission();
       if (permission === "granted") {
@@ -67,6 +82,7 @@ const Adminpage = () => {
           const token = await getToken(messaging, { vapidKey: "BEyh32Mg2fDEecll58zX9G47mGAYQfQsGLAIurDmwGakPd6bI7AZUlkC9w2__oVRgwdOUdKq9OmUW_zU4H71-xE" });
           console.log("FCM Token:", token);
           // Optionally send this token to your server to use it for push notifications
+          sendNotification(token, 'New Order Received', 'A new order has just been placed.');
         } catch (error) {
           console.error("Error getting token:", error);
         }
@@ -75,9 +91,10 @@ const Adminpage = () => {
       }
     };
 
-    if (isAdmin) {
+  
       requestPermission(); // Only request permission for admins
-    }
+  }
+    
   }, [isAdmin]);
 
   const handleLogout = (event: React.MouseEvent<HTMLButtonElement>) => {
