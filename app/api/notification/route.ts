@@ -3,7 +3,7 @@ import admin from 'firebase-admin';
 
 // Initialize Firebase Admin SDK (do this once, globally)
 if (!admin.apps.length) {
-  const serviceAccount = require('@/public/service-account-key.json'); // Update this to the correct path
+  const serviceAccount = require('../../public/service-account-key.json'); // Update this to the correct path
   admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
   });
