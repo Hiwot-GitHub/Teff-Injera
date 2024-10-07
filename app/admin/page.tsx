@@ -8,6 +8,8 @@ import axios from 'axios';
 import { Order } from '@prisma/client';
 import { useState, useEffect } from 'react'
 import { Button } from '@radix-ui/themes';
+import { getToken } from 'firebase/messaging';
+import { messaging } from '../firebase';
 
 
 const Adminpage = () => {
@@ -53,6 +55,30 @@ const Adminpage = () => {
     getOrders();
 
   },[])
+
+
+   // Request notification permission and get the FCM token
+   useEffect(() => {
+    const requestPermission = async () => {
+      const permission = await Notification.requestPermission();
+      if (permission === "granted") {
+        console.log("Notification permission granted.");
+        try {
+          const token = await getToken(messaging, { vapidKey: "BEyh32Mg2fDEecll58zX9G47mGAYQfQsGLAIurDmwGakPd6bI7AZUlkC9w2__oVRgwdOUdKq9OmUW_zU4H71-xE" });
+          console.log("FCM Token:", token);
+          // Optionally send this token to your server to use it for push notifications
+        } catch (error) {
+          console.error("Error getting token:", error);
+        }
+      } else {
+        console.log("Notification permission denied.");
+      }
+    };
+
+    if (isAdmin) {
+      requestPermission(); // Only request permission for admins
+    }
+  }, [isAdmin]);
 
   const handleLogout = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
