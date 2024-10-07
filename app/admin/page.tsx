@@ -79,10 +79,12 @@ const Adminpage = () => {
       if (permission === "granted") {
         console.log("Notification permission granted.");
         try {
+          if (navigator){
           const token = await getToken(messaging, { vapidKey:  process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY });
           console.log("FCM Token:", token);
           // Optionally send this token to your server to use it for push notifications
           sendNotification(token, 'New Order Received', 'A new order has just been placed.');
+          }
         } catch (error) {
           console.error("Error getting token:", error);
         }
