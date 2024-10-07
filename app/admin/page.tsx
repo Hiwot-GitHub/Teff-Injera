@@ -9,7 +9,7 @@ import { Order } from '@prisma/client';
 import { useState, useEffect } from 'react'
 import { Button } from '@radix-ui/themes';
 import { getToken } from 'firebase/messaging';
-import { messaging } from '../firebase';
+import { messaging } from '@/lib/firebase';
 
 
 const Adminpage = () => {
