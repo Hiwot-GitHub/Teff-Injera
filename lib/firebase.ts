@@ -18,4 +18,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 // Initialize Firebase Cloud Messaging and export it
-export const messaging = getMessaging(app);
+if (typeof window !== "undefined") {
+  const messaging = getMessaging(app);
+}
+
+export { getMessaging };
