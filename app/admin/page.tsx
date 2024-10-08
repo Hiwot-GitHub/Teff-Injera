@@ -8,9 +8,6 @@ import axios from 'axios';
 import { Order } from '@prisma/client';
 import { useState, useEffect } from 'react'
 import { Button } from '@radix-ui/themes';
-import { getToken } from 'firebase/messaging';
-import { messaging } from '@/lib/firebase';
-import FirebaseMessaging from './components/FirebaseMessaging';
 
 
 const Adminpage = () => {
@@ -73,7 +70,7 @@ const Adminpage = () => {
     {session && isAdmin && ( <>
                <ViewOrder orders={orders} />
                <MenuItemForm />
-               <FirebaseMessaging />
+               
               </>)
   }
       {session && !isAdmin && <p>You are not authorized</p>}
