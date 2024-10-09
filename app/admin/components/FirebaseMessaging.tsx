@@ -2,51 +2,67 @@
 
 import { useEffect } from 'react';
 import { getToken, Messaging } from 'firebase/messaging';
-import { messaging } from '@/lib/firebase'; // Ensure this is correctly importing the messaging instance
+import { messaging } from '@/lib/firebase';
 import axios from 'axios';
 
 const FirebaseMessaging = () => {
   useEffect(() => {
-    // Ensure the code runs only on the client-side
-    if (typeof window !== "undefined" && messaging !== null) {
-      // Function to register service worker and request notification permission
-      const registerServiceWorkerAndRequestPermission = async () => {
-        try {
-          // Register service worker for Firebase Messaging
-          const registration = await navigator.serviceWorker.register('/firebase-messaging-sw.js');
-          console.log('Service Worker registered successfully:', registration);
+    const registerServiceWorker = async () => {
+      try {
+        const registration = await navigator.serviceWorker.register('/firebase-messaging-sw.js');
+        console.log('Service Worker registered:', registration);
 
-          // Request notification permission
-          const permission = await Notification.requestPermission();
-          if (permission === 'granted') {
-            console.log('Notification permission granted.');
+        // Now check for notification permissions and request token
+        await requestNotificationPermission(registration);
+      } catch (error) {
+        console.error('Error registering Service Worker:', error);
+      }
+    };
 
-            // Get Firebase Cloud Messaging token
-            const token = await getToken(messaging as Messaging, {
-              vapidKey: process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY,
-              serviceWorkerRegistration: registration, // Pass service worker registration
-            });
+    const requestNotificationPermission = async (registration: ServiceWorkerRegistration) => {
+      try {
+        const permission = await Notification.requestPermission();
+        if (permission === 'granted') {
+          console.log('Notification permission granted.');
 
-            console.log('FCM Token:', token);
-            
-            // Optionally, send the token to your server
-            await axios.post('/api/notification', {
-              token,
-              title: 'New Order Received',
-              body: 'A new order has just been placed.',
-            });
+          // Ensure messaging is initialized
+          if (messaging) {
+            try {
+              const token = await getToken(messaging as Messaging, {
+                vapidKey: process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY,
+                serviceWorkerRegistration: registration, // Make sure to pass the registration
+              });
+
+              if (token) {
+                console.log('FCM Token:', token);
+                // Optionally, send the token to your server
+                await axios.post('/api/notification', {
+                  token,
+                  title: 'New Order Received',
+                  body: 'A new order has just been placed.',
+                });
+              } else {
+                console.error('No FCM token received');
+              }
+            } catch (error) {
+              console.error('Error getting FCM token:', error);
+            }
           } else {
-            console.log('Notification permission denied.');
+            console.error('Messaging not initialized.');
           }
-        } catch (error) {
-          console.error('Error in service worker registration or FCM token retrieval:', error);
+        } else {
+          console.log('Notification permission denied.');
         }
-      };
+      } catch (error) {
+        console.error('Error requesting notification permission:', error);
+      }
+    };
 
-      // Call the function to register service worker and request permission
-      registerServiceWorkerAndRequestPermission();
+    // Only execute the logic in a browser environment (client-side)
+    if (typeof window !== 'undefined') {
+      registerServiceWorker();
     } else {
-      console.log('Messaging not initialized or not running on client-side.');
+      console.log('Window is undefined, skipping service worker registration.');
     }
   }, []);
 
