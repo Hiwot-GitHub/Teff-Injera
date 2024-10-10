@@ -9,11 +9,15 @@ const FirebaseMessaging = () => {
   useEffect(() => {
     const registerServiceWorker = async () => {
       try {
+        if (typeof window !== "undefined" && 'serviceWorker' in navigator){
         const registration = await navigator.serviceWorker.register('/firebase-messaging-sw.js');
         console.log('Service Worker registered:', registration);
 
         // Now check for notification permissions and request token
         await requestNotificationPermission(registration);
+      } else {
+        console.log('Service workers are not supported in this environment.');
+       }
       } catch (error) {
         console.error('Error registering Service Worker:', error);
       }
