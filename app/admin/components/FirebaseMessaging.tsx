@@ -9,7 +9,7 @@ const FirebaseMessaging = () => {
   useEffect(() => {
     const registerServiceWorker = async () => {
       try {
-        if (typeof window !== "undefined" && 'serviceWorker' in navigator){
+        if ( 'serviceWorker' in navigator){
         const registration = await navigator.serviceWorker.register('/firebase-messaging-sw.js');
         console.log('Service Worker registered:', registration);
 
