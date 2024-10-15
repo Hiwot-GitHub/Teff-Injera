@@ -1,6 +1,6 @@
 // firebase-messaging-sw.js
-importScripts('https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js');
-importScripts('https://www.gstatic.com/firebasejs/10.14.0/firebase-messaging.js');
+importScripts('firebase/firebase-app.js');
+importScripts('firebase/firebase-messaging.js');
 
 // Initialize Firebase in the service worker
 const firebaseConfig = {
