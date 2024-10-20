@@ -13,6 +13,8 @@ import { z } from 'zod'
 import { CartItem } from '@/app/CartContext';
 import   ErrorMessage  from './ErrorMessage';
 import Spinner from './Spinner';
+import FCMContext from '../FCMTokenContext';
+
 
 type orderFormData = z.infer<typeof CreateOrderFormSchema>
 type orderData = z.infer<typeof CreateOrderSchema>
@@ -67,6 +69,7 @@ useEffect(() => {
 },[selectedDate, currentHour]);
 
 const onSubmit: SubmitHandler<orderFormData> = async (formData) => {
+  const { fcmToken } = useContext(FCMContext);
   try{
     setSubmitting(true);
     const parsedCart: CartItem[] = JSON.parse(formData.cart);
@@ -82,9 +85,21 @@ const onSubmit: SubmitHandler<orderFormData> = async (formData) => {
 
     };
     console.log(data);
-    await axios.post('/api/order', data);
-    clearCart();
-    setFormSubmitted(true);
+    const response = await axios.post('/api/order', data);
+    if (response.status === 201){
+      if (fcmToken){
+        await axios.post('api/notification', {
+          token: fcmToken,
+          title: 'New Order Received',
+          body: 'A new order has just been placed.',
+        });
+      }
+    
+      clearCart();
+      setFormSubmitted(true);
+    } else{
+      console.log('Order creation failed:', response)
+    }
   }catch(error){
     console.error('Error submitting order:', error);
   }

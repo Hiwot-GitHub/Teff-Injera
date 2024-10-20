@@ -1,9 +1,10 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { getToken, Messaging } from 'firebase/messaging';
 import { messaging } from '@/lib/firebase';
 import axios from 'axios';
+import FCMContext from '@/app/FCMTokenContext';
 
 const FirebaseMessaging = () => {
   useEffect(() => {
@@ -18,7 +19,7 @@ const FirebaseMessaging = () => {
       } else {
         console.log('Service workers are not supported in this environment.');
        }
-      } catch (error) {
+      } catch (error) { 
         console.error('Error registering Service Worker:', error);
       }
     };
@@ -38,13 +39,8 @@ const FirebaseMessaging = () => {
               });
 
               if (token) {
-                console.log('FCM Token:', token);
-                // Optionally, send the token to your server
-                await axios.post('/api/notification', {
-                  token,
-                  title: 'New Order Received',
-                  body: 'A new order has just been placed.',
-                });
+                const { setFcmToken } = useContext(FCMContext);
+                setFcmToken(token);
               } else {
                 console.error('No FCM token received');
               }

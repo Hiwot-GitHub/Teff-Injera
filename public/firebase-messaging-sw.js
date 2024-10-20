@@ -1,5 +1,4 @@
 // firebase-messaging-sw.js
-// firebase-messaging-sw.js
 
 // Handle background push notifications
 self.addEventListener('push', function(event) {
