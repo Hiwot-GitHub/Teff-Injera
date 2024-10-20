@@ -55,6 +55,7 @@ const timeSlots = [
 ];
 
 const [updatedTimeSlot, setUpdatedTimeSlot] = useState(timeSlots);
+const { fcmToken } = useContext(FCMContext);
 
 //a useEffect to  disable past delivery time interval if order is for today
 useEffect(() => {
@@ -69,7 +70,6 @@ useEffect(() => {
 },[selectedDate, currentHour]);
 
 const onSubmit: SubmitHandler<orderFormData> = async (formData) => {
-  const { fcmToken } = useContext(FCMContext);
   try{
     setSubmitting(true);
     const parsedCart: CartItem[] = JSON.parse(formData.cart);

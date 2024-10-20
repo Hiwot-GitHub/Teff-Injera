@@ -7,6 +7,7 @@ import axios from 'axios';
 import FCMContext from '@/app/FCMTokenContext';
 
 const FirebaseMessaging = () => {
+  const { setFcmToken } = useContext(FCMContext);
   useEffect(() => {
     const registerServiceWorker = async () => {
       try {
@@ -39,7 +40,6 @@ const FirebaseMessaging = () => {
               });
 
               if (token) {
-                const { setFcmToken } = useContext(FCMContext);
                 setFcmToken(token);
               } else {
                 console.error('No FCM token received');
