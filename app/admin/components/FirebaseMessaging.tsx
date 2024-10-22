@@ -3,7 +3,6 @@
 import { useContext, useEffect } from 'react';
 import { getToken, Messaging } from 'firebase/messaging';
 import { messaging } from '@/lib/firebase';
-import axios from 'axios';
 import FCMContext from '@/app/FCMTokenContext';
 
 const FirebaseMessaging = () => {
@@ -31,8 +30,6 @@ const FirebaseMessaging = () => {
         if (permission === 'granted') {
           console.log('Notification permission granted.');
 
-          // Ensure messaging is initialized
-          if (messaging) {
             try {
               const token = await getToken(messaging as Messaging, {
                 vapidKey: process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY,
@@ -47,9 +44,6 @@ const FirebaseMessaging = () => {
             } catch (error) {
               console.error('Error getting FCM token:', error);
             }
-          } else {
-            console.error('Messaging not initialized.');
-          }
         } else {
           console.log('Notification permission denied.');
         }
