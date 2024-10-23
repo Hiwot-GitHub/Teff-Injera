@@ -59,7 +59,7 @@ const FirebaseMessaging = () => {
   
   return (
     <Box className='p-4'>
-      <Button onClick={registerServiceWorker}>{isGranted? 'Disable Notification':'Enable Notifications'}</Button>
+      {!isGranted && (<Button onClick={registerServiceWorker}>Enable Notifications</Button>) }
     </Box>
   );
 };
