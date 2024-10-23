@@ -8,7 +8,7 @@ import { Box, Button } from '@radix-ui/themes';
 
 const FirebaseMessaging = () => {
   const { setFcmToken } = useContext(FCMContext);
-  const [isGranted, setIsGranted] = useState(false);
+  const [isGranted, setIsGranted] = useState(Notification.permission === 'granted');
   
     const registerServiceWorker = async () => {
       try {
