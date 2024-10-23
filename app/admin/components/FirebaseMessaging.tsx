@@ -1,13 +1,15 @@
 'use client';
 
-import { useContext, useEffect } from 'react';
+import { useContext, useState } from 'react';
 import { getToken, Messaging } from 'firebase/messaging';
 import { messaging } from '@/lib/firebase';
 import FCMContext from '@/app/FCMTokenContext';
+import { Box, Button } from '@radix-ui/themes';
 
 const FirebaseMessaging = () => {
   const { setFcmToken } = useContext(FCMContext);
-  useEffect(() => {
+  const [isGranted, setIsGranted] = useState(false);
+  
     const registerServiceWorker = async () => {
       try {
         if ( 'serviceWorker' in navigator){
@@ -28,6 +30,7 @@ const FirebaseMessaging = () => {
       try {
         const permission = await Notification.requestPermission();
         if (permission === 'granted') {
+          setIsGranted(true);
           console.log('Notification permission granted.');
 
             try {
@@ -38,6 +41,7 @@ const FirebaseMessaging = () => {
 
               if (token) {
                 setFcmToken(token);
+                console.log('FCM Token;', token);
               } else {
                 console.error('No FCM token received');
               }
@@ -51,16 +55,12 @@ const FirebaseMessaging = () => {
         console.error('Error requesting notification permission:', error);
       }
     };
-
-    // Only execute the logic in a browser environment (client-side)
-    if (typeof window !== 'undefined') {
-      registerServiceWorker();
-    } else {
-      console.log('Window is undefined, skipping service worker registration.');
-    }
-  }, []);
-
-  return null; // No UI is needed for this component
+  
+  return (
+    <Box>
+      <Button onClick={registerServiceWorker}>{isGranted? 'Disable Notification':'Enable Notifications'}</Button>
+    </Box>
+  );
 };
 
 export default FirebaseMessaging;
