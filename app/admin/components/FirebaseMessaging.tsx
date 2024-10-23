@@ -50,6 +50,7 @@ const FirebaseMessaging = () => {
             }
         } else {
           console.log('Notification permission denied.');
+          setIsGranted(false);
         }
       } catch (error) {
         console.error('Error requesting notification permission:', error);
@@ -57,7 +58,7 @@ const FirebaseMessaging = () => {
     };
   
   return (
-    <Box>
+    <Box className='p-4'>
       <Button onClick={registerServiceWorker}>{isGranted? 'Disable Notification':'Enable Notifications'}</Button>
     </Box>
   );
