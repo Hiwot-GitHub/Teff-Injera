@@ -17,10 +17,17 @@ const FCMContext = createContext<FCMContextType>(initialContextValue);
 
 // Create a provider component
 export const FCMProvider = ({ children }: { children: React.ReactNode }) => {
-  const [fcmTokens, setFcmTokens] = useState<string[]>(() => {
-    const storedTokens = localStorage.getItem('adminTokens');
-    return storedTokens ? JSON.parse(storedTokens) : [];
-  });
+  const [fcmTokens, setFcmTokens] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined'){
+        const storedTokens = localStorage.getItem('adminTokens');
+        if (storedTokens){
+            return JSON.parse(storedTokens);
+        }  
+    }
+   
+  })
 
   const addFcmToken = (token: string) => {
     setFcmTokens((prevTokens) => {
