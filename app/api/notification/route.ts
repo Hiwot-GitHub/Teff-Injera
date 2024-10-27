@@ -11,22 +11,29 @@ if (!admin.apps.length) {
 
 const messaging = admin.messaging();
 
+interface NotificationPayload {
+  tokens: string[]; // Array of FCM tokens
+  title: string;
+  body: string;
+}
+
 // Define the POST route handler for sending notifications
 export async function POST(request: NextRequest) {
   try {
-    const { token, title, body } = await request.json();
+    const { tokens, title, body }: NotificationPayload = await request.json();
 
-    const message = {
-      token, // FCM token of the receiving device
+    const messages = tokens.map(token => ({
+      token,
       notification: {
         title,
         body,
       },
-    };
+    })
+  );
 
-    // Send notification
-    const response = await messaging.send(message);
-    return NextResponse.json({ success: true, message: 'Notification sent', response });
+    // Send notification to all tokens
+    const responses = await Promise.all(messages.map(message => messaging.send(message)));
+    return NextResponse.json({ success: true, message: 'Notification sent', responses });
   } catch (error) {
     console.error('Error sending notification:', error);
     return NextResponse.json({ success: false, message: 'Error sending notification', error });

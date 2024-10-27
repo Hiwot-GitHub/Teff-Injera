@@ -55,7 +55,7 @@ const timeSlots = [
 ];
 
 const [updatedTimeSlot, setUpdatedTimeSlot] = useState(timeSlots);
-const { fcmToken } = useContext(FCMContext);
+const { fcmTokens } = useContext(FCMContext);
 
 //a useEffect to  disable past delivery time interval if order is for today
 useEffect(() => {
@@ -87,9 +87,9 @@ const onSubmit: SubmitHandler<orderFormData> = async (formData) => {
     console.log(data);
     const response = await axios.post('/api/order', data);
     if (response.status === 201){
-      if (fcmToken){
+      if (fcmTokens){
         await axios.post('api/notification', {
-          token: fcmToken,
+          tokens: fcmTokens,
           title: 'New Order Received',
           body: 'A new order has just been placed.',
         });

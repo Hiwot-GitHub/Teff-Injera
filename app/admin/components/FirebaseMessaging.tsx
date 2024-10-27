@@ -7,7 +7,7 @@ import FCMContext from '@/app/FCMTokenContext';
 import { Box, Button } from '@radix-ui/themes';
 
 const FirebaseMessaging = () => {
-  const { setFcmToken } = useContext(FCMContext);
+  const { addFcmToken } = useContext(FCMContext);
   const [isGranted, setIsGranted] = useState(Notification.permission === 'granted');
   
     const registerServiceWorker = async () => {
@@ -40,7 +40,7 @@ const FirebaseMessaging = () => {
               });
 
               if (token) {
-                setFcmToken(token);
+                addFcmToken(token);
                 console.log('FCM Token;', token);
               } else {
                 console.error('No FCM token received');
