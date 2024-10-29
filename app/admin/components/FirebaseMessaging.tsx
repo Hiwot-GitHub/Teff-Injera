@@ -40,7 +40,6 @@ const FirebaseMessaging = () => {
               });
 
               if (token) {
-                console.log('type of useContext(FCMContext):', typeof useContext(FCMContext));
                 console.log('type of addFcmToken:', typeof addFcmToken);
                 addFcmToken(token);
                 console.log('FCM Token;', token);
