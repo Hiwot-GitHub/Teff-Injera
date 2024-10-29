@@ -23,11 +23,11 @@ export const FCMProvider = ({ children }: { children: React.ReactNode }) => {
     if (typeof window !== 'undefined'){
         const storedTokens = localStorage.getItem('adminTokens');
         if (storedTokens){
-            return JSON.parse(storedTokens);
+            setFcmTokens(JSON.parse(storedTokens));
         }  
     }
    
-  })
+  },[]);
 
   const addFcmToken = (token: string) => {
     setFcmTokens((prevTokens) => {
