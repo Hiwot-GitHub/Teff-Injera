@@ -22,18 +22,23 @@ export async function POST(request: NextRequest) {
   try {
     const { tokens, title, body }: NotificationPayload = await request.json();
 
-    const messages = tokens.map(token => ({
-      token,
+    const message = {
       notification: {
         title,
         body,
       },
-    })
-  );
+      tokens
+    }
 
     // Send notification to all tokens
-    const responses = await Promise.all(messages.map(message => messaging.send(message)));
-    return NextResponse.json({ success: true, message: 'Notification sent', responses });
+    const response = await messaging.sendEachForMulticast(message);
+
+    return NextResponse.json({
+      success: response.successCount > 0,
+      failureCount: response.failureCount,
+      responses: response.responses, 
+    });
+  
   } catch (error) {
     console.error('Error sending notification:', error);
     return NextResponse.json({ success: false, message: 'Error sending notification', error });
