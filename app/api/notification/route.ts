@@ -21,7 +21,7 @@ interface NotificationPayload {
 export async function POST(request: NextRequest) {
   try {
     const { tokens, title, body }: NotificationPayload = await request.json();
-
+    console.log("FCM tokens being used:", tokens);
     const message = {
       notification: {
         title,

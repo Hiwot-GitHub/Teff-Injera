@@ -24,6 +24,7 @@ export const FCMProvider = ({ children }: { children: React.ReactNode }) => {
         const storedTokens = localStorage.getItem('adminTokens');
         if (storedTokens){
             setFcmTokens(JSON.parse(storedTokens));
+            console.log("FCM tokens loaded from localStorage:", storedTokens);
         }  
     }
    
@@ -33,7 +34,8 @@ export const FCMProvider = ({ children }: { children: React.ReactNode }) => {
     setFcmTokens((prevTokens) => {
         if (!prevTokens.includes(token)){
             const updatedTokens = [...prevTokens, token];
-            localStorage.setItem('adminTokens', JSON.stringify(updatedTokens)); 
+            localStorage.setItem('adminTokens', JSON.stringify(updatedTokens));
+            console.log("Updated FCM tokens in context:", updatedTokens);
             return updatedTokens;
         };
         return prevTokens;
