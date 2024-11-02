@@ -28,11 +28,24 @@ export async function POST(request: NextRequest) {
         body,
       },
       tokens
-    }
+    };
 
     // Send notification to all tokens
     const response = await messaging.sendEachForMulticast(message);
 
+    // Log success and failure counts
+    console.log("Notification send response:", response);
+    console.log(`Success count: ${response.successCount}, Failure count: ${response.failureCount}`);
+
+    // Loop through each response and log details for each token
+    response.responses.forEach((res, index) => {
+      if(res.success){
+        console.log(`Notification sent successfully to token: ${tokens[index]}`);
+      } else {
+        console.error(`Error sending notification to token: ${tokens[index]}`, res.error);
+      }
+    });
+    
     return NextResponse.json({
       success: response.successCount > 0,
       failureCount: response.failureCount,
