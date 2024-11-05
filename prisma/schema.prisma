@@ -121,3 +121,11 @@ enum Role {
   STAFF
   ADMIN
 }
+
+model FCMTokens {
+  id        Int      @id @default(autoincrement())
+  token String @unique
+  deviceInfo String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
