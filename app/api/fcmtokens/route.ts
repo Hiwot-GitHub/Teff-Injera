@@ -7,19 +7,35 @@ export async function GET(request: NextRequest){
     return NextResponse.json(tokens);
 }
 
+interface DeviceInfo {
+    userAgent: string;
+    language: string;
+  }
+  
+  interface FcmTokenPayload {
+    token: string;
+    deviceInfo: DeviceInfo;
+  }
+
 export async function POST(request: NextRequest) {
     try{
-        const { token, deviceInfo } = await request.json();
+        console.log("Receiving FCM token payload...");
+        const { token, deviceInfo }: FcmTokenPayload = await request.json();
+        console.log('Received token and deviceInfo', token, deviceInfo);
         if (!token){
+            console.log("Missing FCM token in request");
             return NextResponse.json({ error: 'Token is required' }, { status: 400 });
         }
-
+        
+        const deviceInfoString = JSON.stringify(deviceInfo);
+        console.log("Device Info (as string):", deviceInfoString);
+        
         const upsertedToken = await prisma.fCMTokens.upsert({
             where: { token },
-            update: { deviceInfo },
+            update: { deviceInfo: deviceInfoString },
             create: {
                 token,
-                deviceInfo
+                deviceInfo: deviceInfoString
             },
         });
         return NextResponse.json({ message: 'FCM token saved successfully', token: upsertedToken });
