@@ -13,7 +13,6 @@ import { z } from 'zod'
 import { CartItem } from '@/app/CartContext';
 import   ErrorMessage  from './ErrorMessage';
 import Spinner from './Spinner';
-import FCMContext from '../FCMTokenContext';
 
 
 type orderFormData = z.infer<typeof CreateOrderFormSchema>
@@ -55,7 +54,6 @@ const timeSlots = [
 ];
 
 const [updatedTimeSlot, setUpdatedTimeSlot] = useState(timeSlots);
-const { fcmTokens } = useContext(FCMContext);
 
 //a useEffect to  disable past delivery time interval if order is for today
 useEffect(() => {
@@ -87,13 +85,10 @@ const onSubmit: SubmitHandler<orderFormData> = async (formData) => {
     console.log(data);
     const response = await axios.post('/api/order', data);
     if (response.status === 201){
-      if (fcmTokens){
         await axios.post('api/notification', {
-          tokens: fcmTokens,
           title: 'New Order Received',
           body: 'A new order has just been placed.',
         });
-      }
     
       clearCart();
       setFormSubmitted(true);

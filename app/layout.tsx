@@ -10,7 +10,6 @@ import { ThemeProvider } from 'next-themes'
 
 import ShowCartIcon from './ShowCartIcon';
 import { SessionProvider } from 'next-auth/react';
-import { FCMProvider } from './FCMTokenContext';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,7 +28,6 @@ export default function RootLayout({
       <body className={inter.className}>
         <SessionProvider>
         <CartProvider>
-          <FCMProvider>
           <ThemeProvider attribute='class'>
             <Theme accentColor='grass'>
              <NavBar />
@@ -41,7 +39,6 @@ export default function RootLayout({
             </Container></main>
         </Theme>
       </ThemeProvider>
-    </FCMProvider>
   </CartProvider>
   </SessionProvider>
 </body>

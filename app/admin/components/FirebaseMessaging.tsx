@@ -1,13 +1,12 @@
 'use client';
 
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { getToken, Messaging } from 'firebase/messaging';
 import { messaging } from '@/lib/firebase';
-import FCMContext from '@/app/FCMTokenContext';
 import { Box, Button } from '@radix-ui/themes';
+import axios from 'axios';
 
 const FirebaseMessaging = () => {
-  const { addFcmToken } = useContext(FCMContext);
   const [isGranted, setIsGranted] = useState(Notification.permission === 'granted');
   
     const registerServiceWorker = async () => {
@@ -40,9 +39,17 @@ const FirebaseMessaging = () => {
               });
 
               if (token) {
-                console.log('type of addFcmToken:', typeof addFcmToken);
-                addFcmToken(token);
-                console.log('FCM Token;', token);
+                
+               // Extract device information
+                 const deviceInfo = {
+                 userAgent: navigator.userAgent, // Browser details
+                language: navigator.language,   // User's language preference
+                };
+
+               await axios.post('api/fcmtokens', {
+                      token,
+                      deviceInfo,
+                });
               } else {
                 console.error('No FCM token received');
               }

@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import prisma from "@/prisma/client";
 import admin from 'firebase-admin';
 
 // Initialize Firebase Admin SDK (do this once, globally)
@@ -11,17 +12,19 @@ if (!admin.apps.length) {
 
 const messaging = admin.messaging();
 
-interface NotificationPayload {
-  tokens: string[]; // Array of FCM tokens
-  title: string;
-  body: string;
-}
+
 
 // Define the POST route handler for sending notifications
 export async function POST(request: NextRequest) {
   try {
-    const { tokens, title, body }: NotificationPayload = await request.json();
-    console.log("FCM tokens being used:", tokens);
+    const { title, body } = await request.json();
+
+    const fcmTokens = await prisma.fCMTokens.findMany({
+      select: { token: true },  // Only fetch the token field
+    });
+
+     const tokens = fcmTokens.map(tokenObj => tokenObj.token);
+    
     const message = {
       notification: {
         title,
@@ -45,7 +48,7 @@ export async function POST(request: NextRequest) {
         console.error(`Error sending notification to token: ${tokens[index]}`, res.error);
       }
     });
-    
+
     return NextResponse.json({
       success: response.successCount > 0,
       failureCount: response.failureCount,
