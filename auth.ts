@@ -24,6 +24,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     Google({}),
   ],
   callbacks: {
+    async session({ session, user }) {
+      if (session.user) {
+        session.user.role = user.role; // Explicitly add the role to the session
+      }
+      return session;
+    },
+    
       async signIn({ user, account, profile }) {
 
         if (!account) {

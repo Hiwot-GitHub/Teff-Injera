@@ -19,8 +19,10 @@ const Adminpage = () => {
    useEffect(() => {
     const checkUserRole = async () => {
       try {
-        if (session?.user?.role !== 'USER') {
+        if (session?.user?.role && session.user.role !== 'USER') {
           setIsAdmin(true);
+        } else {
+          setIsAdmin(false)
         }
       } catch (error) {
         console.error('Error checking user role:', error);
