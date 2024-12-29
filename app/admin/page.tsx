@@ -9,6 +9,7 @@ import { Order } from '@prisma/client';
 import { useState, useEffect } from 'react'
 import { Button } from '@radix-ui/themes';
 import FirebaseMessaging from './components/FirebaseMessaging';
+import Sidebar from './components/Sidebar';
 
 
 const Adminpage = () => {
@@ -70,11 +71,14 @@ const Adminpage = () => {
 
   return (
     <>
-    {session && isAdmin && ( <>
+    {session && isAdmin && ( <div className='flex'>
+               <Sidebar />
+               <main>
                <ViewOrder orders={orders} />
                <MenuItemForm />
+               </main>
                <FirebaseMessaging />
-              </>)
+              </div>)
   }
       {session && !isAdmin && <p>You are not authorized</p>}
       {!session && <p>Please log in to access this page</p>} 
