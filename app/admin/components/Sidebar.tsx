@@ -14,20 +14,20 @@ const Sidebar = () => {
   ];
 
   return (
-    <div className="hidden md:block top-[6rem] w-64 h-[calc(100vh-6rem)] bg-lime-50 text-DarkGrayishBlue fixed  left-0">
+    <div className="hidden lg:block top-[6rem] w-64 h-[calc(100vh-6rem)] bg-green-50 text-DarkGrayishBlue fixed  left-0">
       <div className="p-4 text-lg font-bold">Admin Panel</div>
       <nav>
         <ul className="space-y-2">
           {menuItems.map((item) => (
             <li key={item.name}>
               <Link href={item.href}>
-                <a className="block px-4 py-2 hover:bg-lime-100">
-                    <span className='mr-2 align-middle '>{item.icon}</span>{item.name}</a>
+                <a className="block px-4 py-2 hover:bg-green-100">
+                    <span className='w-4 h-4 mr-2 align-baseline '>{item.icon}</span>{item.name}</a>
               </Link>
             </li>
           ))}
         </ul>
-        <MenuItemForm />
+        <div className='px-4 py-6'><MenuItemForm /></div>
       </nav>
     </div>
   );
