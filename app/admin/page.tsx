@@ -73,7 +73,7 @@ const Adminpage = () => {
     <>
     {session && isAdmin && ( <div className='flex'>
                <Sidebar />
-               <main>
+               <main className='ml-64'>
                <ViewOrder orders={orders} />
                <MenuItemForm />
                </main>
