@@ -1,7 +1,6 @@
 'use client';
 
 import prisma from '@/prisma/client';
-import MenuItemForm from './components/MenuItemForm';
 import { useSession, signOut, signIn } from 'next-auth/react';
 import ViewOrder from './components/View-orders';
 import axios from 'axios';
@@ -75,7 +74,6 @@ const Adminpage = () => {
                <Sidebar />
                <main className='ml-64'>
                <ViewOrder orders={orders} />
-               <MenuItemForm />
                </main>
                <FirebaseMessaging />
               </div>)
