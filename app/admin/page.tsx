@@ -97,7 +97,7 @@ const Adminpage = () => {
 
                </div>
 
-               <div className='m-4 bg-green-50'>
+               <div className='flex-1 m-4 bg-green-50'>
                <ViewOrder orders={orders} />
                </div>
                <FirebaseMessaging />

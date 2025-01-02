@@ -14,7 +14,7 @@ const Sidebar = ({ activeTab, onTabClick} : { activeTab: string, onTabClick: (ta
   ];
 
   return (
-    <div className="hidden lg:block top-[6rem] w-64 h-[calc(100vh-6rem)] bg-white text-DarkGrayishBlue fixed  left-0">
+    <div className="top-[6rem] w-64 h-[calc(100vh-6rem)] bg-white text-DarkGrayishBlue fixed  left-0">
       <div className="p-4 text-lg font-bold">Admin Panel</div>
       <nav>
         <ul className="space-y-2">
