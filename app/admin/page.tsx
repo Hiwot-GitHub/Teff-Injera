@@ -9,12 +9,15 @@ import { useState, useEffect } from 'react'
 import { Button } from '@radix-ui/themes';
 import FirebaseMessaging from './components/FirebaseMessaging';
 import Sidebar from './components/Sidebar';
+import { CiMenuFries } from "react-icons/ci";
 
 
 const Adminpage = () => {
   const { data: session, status } = useSession();
   const [isAdmin, setIsAdmin] = useState(false);
-   const [orders, setOrders] = useState<Order[]>([]);
+  const [orders, setOrders] = useState<Order[]>([]);
+  const [activeTab, setActiveTab ] = useState('orders');
+  const [isSidebarOpen, setIsSidebarOpen ] = useState(false);
 
    useEffect(() => {
     const checkUserRole = async () => {
@@ -71,10 +74,32 @@ const Adminpage = () => {
   return (
     <>
     {session && isAdmin && ( <div className='flex'>
-               <Sidebar />
-               <main className='ml-64'>
+              
+               <div className='hidden lg:block'>
+               <Sidebar activeTab={activeTab} onTabClick={(tab) => setActiveTab(tab)}/>
+               </div>
+               
+               isSidebarOpen && (
+                <div className='fixed inset-0 z-50 bg-green-50  lg:hidden'>
+                <div className="h-[2rem] w-full  bg-opacity-50 cursor-pointer" 
+                   onClick={() => setIsSidebarOpen(false)}></div>
+
+                <div className="h-[calc(100%-2rem)] w-full ">
+                  <Sidebar activeTab={activeTab} onTabClick={(tab) => setActiveTab(tab)} />     
+                </div>
+                </div>
+               )
+
+               <div className='lg:hidden'>
+                <button onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
+                  <CiMenuFries/>
+                </button>
+
+               </div>
+
+               <div className='ml-64 bg-green-100'>
                <ViewOrder orders={orders} />
-               </main>
+               </div>
                <FirebaseMessaging />
               </div>)
   }
