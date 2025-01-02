@@ -75,7 +75,7 @@ const Adminpage = () => {
     <>
     {session && isAdmin && ( <div className='flex'>
               
-               <div className='hidden lg:block'>
+               <div className='hidden lg:block w-64'>
                <Sidebar activeTab={activeTab} onTabClick={(tab) => setActiveTab(tab)}/>
                </div>
                
