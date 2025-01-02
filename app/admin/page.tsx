@@ -79,16 +79,16 @@ const Adminpage = () => {
                <Sidebar activeTab={activeTab} onTabClick={(tab) => setActiveTab(tab)}/>
                </div>
                
-               isSidebarOpen && (
+               {isSidebarOpen && (
                 <div className='fixed inset-0 z-50 bg-green-50  lg:hidden'>
-                <div className="h-[2rem] w-full  bg-opacity-50 cursor-pointer" 
+                <div className="h-[4rem] w-full z-50 bg-opacity-50 cursor-pointer" 
                    onClick={() => setIsSidebarOpen(false)}></div>
 
-                <div className="h-[calc(100%-2rem)] w-full ">
+                <div className="h-[calc(100%-4rem)] w-full z-60 ">
                   <Sidebar activeTab={activeTab} onTabClick={(tab) => setActiveTab(tab)} />     
                 </div>
                 </div>
-               )
+               )}
 
                <div className='lg:hidden'>
                 <button onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
@@ -97,7 +97,7 @@ const Adminpage = () => {
 
                </div>
 
-               <div className='ml-64 bg-green-100'>
+               <div className='m-4 bg-green-50'>
                <ViewOrder orders={orders} />
                </div>
                <FirebaseMessaging />
