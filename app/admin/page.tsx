@@ -10,6 +10,7 @@ import { Button } from '@radix-ui/themes';
 import FirebaseMessaging from './components/FirebaseMessaging';
 import Sidebar from './components/Sidebar';
 import { CiMenuFries } from "react-icons/ci";
+import Dashboard from './components/Dashboard';
 
 
 const Adminpage = () => {
@@ -73,7 +74,7 @@ const Adminpage = () => {
 
   return (
     <>
-    {session && isAdmin && ( <div className='flex'>
+    {session && isAdmin && ( <div className='flex bg-green-50'>
               
                <div className='hidden lg:block w-64'>
                <Sidebar activeTab={activeTab} onTabClick={(tab) => setActiveTab(tab)}/>
@@ -97,8 +98,9 @@ const Adminpage = () => {
 
                </div>
 
-               <div className='flex-1 m-4 bg-green-50'>
-               <ViewOrder orders={orders} />
+               <div className='flex-1 m-4 '>
+               {activeTab === "dashboard" && <Dashboard />}
+               {activeTab === "orders" && <ViewOrder orders={orders} />}
                </div>
                <FirebaseMessaging />
               </div>)
