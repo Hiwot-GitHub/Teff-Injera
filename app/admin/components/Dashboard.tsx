@@ -13,7 +13,7 @@ function Dashboard() {
         <div><Button variant='soft'>Filter by Date</Button></div>
         </div>
 
-        <Grid columns={{initial: "2", md: "4"}}>
+        <Grid columns={{initial: "2", md: "4"}} gap="3">
            <Box height="64px" maxWidth="200px">
             <Card>
                 <Flex gap="3" align="center">
@@ -100,6 +100,10 @@ function Dashboard() {
     
          </Box>
 
+        </Grid>
+        <Grid columns={{initial: "1", md: "2"}} gap="3">
+            <Box height="192px" maxWidth="400px"><Card></Card></Box>
+            <Box height="192px" maxWidth="400px"><Card></Card></Box>
         </Grid>
     </div>
   )
