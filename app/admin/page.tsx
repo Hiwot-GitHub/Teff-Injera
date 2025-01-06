@@ -99,8 +99,8 @@ const Adminpage = () => {
                </div>
 
                <div className='flex-1 m-4 '>
-               {activeTab === "dashboard" && <Dashboard />}
-               {activeTab === "orders" && <ViewOrder orders={orders} />}
+               {activeTab === "Dashboard" && <Dashboard />}
+               {activeTab === "Orders" && <ViewOrder orders={orders} />}
                </div>
                <FirebaseMessaging />
               </div>)

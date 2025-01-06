@@ -1,5 +1,9 @@
-import { Box, Button, Card, Grid } from '@radix-ui/themes'
+import { Avatar, Box, Button, Card, Flex, Grid, Text } from '@radix-ui/themes'
 import React from 'react'
+import { BsCupStraw } from "react-icons/bs";
+import { BsCurrencyDollar } from "react-icons/bs";
+import { GrNotes } from "react-icons/gr";
+import { MdPeopleAlt } from "react-icons/md";
 
 function Dashboard() {
   return (
@@ -10,10 +14,92 @@ function Dashboard() {
         </div>
 
         <Grid columns={{initial: "2", md: "4"}}>
-            <Box height="64px" maxWidth="200px"><Card></Card></Box>
-            <Box height="64px" maxWidth="200px"><Card></Card></Box>
-            <Box height="64px" maxWidth="200px"><Card></Card></Box>
-            <Box height="64px" maxWidth="200px"><Card></Card></Box>
+           <Box height="64px" maxWidth="200px">
+            <Card>
+                <Flex gap="3" align="center">
+                    <Avatar
+				      size="3"
+				      radius="full"
+				     fallback={
+                        <Box width="24px" height="24px">
+                            <BsCupStraw />
+                        </Box>
+                     }
+                    />
+			   <Box>
+				<Text as="div" size="2" weight="bold">56</Text>
+				<Text as="div" size="2" color="gray">Total Menu</Text>
+			   </Box>
+		       </Flex>
+	        </Card>
+    
+         </Box>
+
+         <Box height="64px" maxWidth="200px">
+            <Card>
+                <Flex gap="3" align="center">
+                    <Avatar
+				      size="3"
+				      radius="full"
+				     fallback={
+                        <Box width="24px" height="24px">
+                            <BsCurrencyDollar />
+                        </Box>
+                     }
+                    />
+			   <Box>
+				<Text as="div" size="2" weight="bold">126k</Text>
+				<Text as="div" size="2" color="gray">Total Revenue</Text>
+			   </Box>
+		       </Flex>
+	        </Card>
+    
+         </Box>
+
+         
+         <Box height="64px" maxWidth="200px">
+            <Card>
+                <Flex gap="3" align="center">
+                    <Avatar
+				      size="3"
+				      radius="full"
+				     fallback={
+                        <Box width="24px" height="24px">
+                            <GrNotes />
+                        </Box>
+                     }
+                    />
+			   <Box>
+				<Text as="div" size="2" weight="bold">179</Text>
+				<Text as="div" size="2" color="gray">Total Orders</Text>
+			   </Box>
+		       </Flex>
+	        </Card>
+    
+         </Box>
+
+         
+         <Box height="64px" maxWidth="200px">
+            <Card>
+                <Flex gap="3" align="center">
+                    <Avatar
+				      size="3"
+				      radius="full"
+				     fallback={
+                        <Box width="24px" height="24px">
+                            < MdPeopleAlt />
+                        </Box>
+                     }
+                    />
+			   <Box>
+				<Text as="div" size="2" weight="bold">65</Text>
+				<Text as="div" size="2" color="gray">Total Customers</Text>
+			   </Box>
+		       </Flex>
+	        </Card>
+    
+         </Box>
+
         </Grid>
     </div>
   )
