@@ -107,7 +107,7 @@ const Dashboard = () => {
                 <Card>
                   <Grid columns="1" rows="5" gap="3">
                     <div className='flex justify-between'>
-                        <div><p>Order Summary</p><Text size="1">visual summary for order based on range</Text></div>
+                        <div><p>Order Summary</p><Text size="1">visual summary</Text></div>
                         <div className='flex h-12 '>
                             {
                                 ["Monthly", "Weekly", "Today"].map((range) => (
@@ -115,15 +115,32 @@ const Dashboard = () => {
                                     onClick={() => setSelectedRange(range)}
                                     className={`px-4 py-2 rounded-md ${
                                       selectedRange === range
-                                        ? "bg-white"
-                                        : "bg-green-50 hover:bg-green-50"
+                                        ? "bg-white text-black "
+                                        : "bg-green-50 hover:bg-green-50 text-black"
                                     }`}
                                   >{range}</Button>
                                 ))
                             }
                         </div>
                     </div>
-                    <div className='w-full bg-green-300'></div>
+                    <div className='flex w-full bg-green-300'>
+                        <div className='w-2 h-2 bg-green-500 text-white'>
+                        <Text weight="bold">25</Text></div><Text className='text-black'>New Orders</Text>
+                    </div>
+                    <div className='flex gap-2'>
+                        <Card>
+                            <Text as='div'>25</Text>
+                            <Text>On Delivery</Text>
+                        </Card>
+                        <Card>
+                            <Text as='div'>60</Text>
+                            <Text>Delivered</Text>
+                        </Card>
+                        <Card>
+                            <Text as='div'>7</Text>
+                            <Text>Canceled</Text>
+                        </Card>
+                    </div>
                  </Grid>
                 </Card>
             </Box>
