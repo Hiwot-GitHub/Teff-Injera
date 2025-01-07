@@ -108,7 +108,7 @@ const Dashboard = () => {
                   <Grid columns="1" rows="5" gap="3">
                     <div className='flex justify-between'>
                         <div><p>Order Summary</p><Text size="1">visual summary for order based on range</Text></div>
-                        <div className='flex '>
+                        <div className='flex h-5 '>
                             {
                                 ["Monthly", "Weekly", "Today"].map((range) => (
                                     <button key={range}
