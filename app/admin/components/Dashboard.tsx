@@ -123,8 +123,8 @@ const Dashboard = () => {
                             }
                         </div>
                     </div>
-                    <div className='flex w-full bg-green-300'>
-                        <div className='w-2 h-2 bg-green-500 text-white'>
+                    <div className='flex w-full bg-green-300 items-center'>
+                        <div className='flex w-8 h-8 bg-green-500 text-white justify-center items-center '>
                         <Text weight="bold">25</Text></div><Text className='text-black'>New Orders</Text>
                     </div>
                     <div className='flex gap-2'>
