@@ -123,9 +123,10 @@ const Dashboard = () => {
                             }
                         </div>
                     </div>
-                    <div className='flex w-full bg-green-300 items-center'>
-                        <div className='flex w-8 h-8 bg-green-500 text-white justify-center items-center '>
+                    <div className='flex w-full bg-green-100 items-stretch'>
+                        <div className='flex w-8 h-8 bg-green-500 text-white justify-center items-center'>
                         <Text weight="bold">25</Text></div><Text className='text-black'>New Orders</Text>
+                        <div className='w-1 h-1 rounded-full bg-green-500 '></div>
                     </div>
                     <div className='flex gap-2'>
                         <Card>
