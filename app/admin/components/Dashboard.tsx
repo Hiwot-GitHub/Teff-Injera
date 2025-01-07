@@ -108,17 +108,17 @@ const Dashboard = () => {
                   <Grid columns="1" rows="5" gap="3">
                     <div className='flex justify-between'>
                         <div><p>Order Summary</p><Text size="1">visual summary for order based on range</Text></div>
-                        <div className='flex h-5 '>
+                        <div className='flex h-12 '>
                             {
                                 ["Monthly", "Weekly", "Today"].map((range) => (
-                                    <button key={range}
+                                    <Button key={range} size="1"
                                     onClick={() => setSelectedRange(range)}
                                     className={`px-4 py-2 rounded-md ${
                                       selectedRange === range
                                         ? "bg-white"
                                         : "bg-green-50 hover:bg-green-50"
                                     }`}
-                                  >{range}</button>
+                                  >{range}</Button>
                                 ))
                             }
                         </div>
