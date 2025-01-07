@@ -1,11 +1,12 @@
 import { Avatar, Box, Button, Card, Flex, Grid, Text } from '@radix-ui/themes'
-import React from 'react'
+import React, { useState } from 'react'
 import { BsCupStraw } from "react-icons/bs";
 import { BsCurrencyDollar } from "react-icons/bs";
 import { GrNotes } from "react-icons/gr";
 import { MdPeopleAlt } from "react-icons/md";
 
-function Dashboard() {
+const Dashboard = () => {
+    const [selectedRange, setSelectedRange] = useState("Today");
   return (
     <div className='bg-green-50 m-4'>
         <div className='flex w-full justify-between'>
@@ -13,7 +14,7 @@ function Dashboard() {
         <div><Button variant='soft'>Filter by Date</Button></div>
         </div>
 
-        <Grid columns={{initial: "2", md: "4"}} gap="3">
+        <Grid columns={{initial: "2", md: "4"}} gap="3" py="3">
            <Box height="64px" maxWidth="200px">
             <Card>
                 <Flex gap="3" align="center">
@@ -101,8 +102,31 @@ function Dashboard() {
          </Box>
 
         </Grid>
-        <Grid columns={{initial: "1", md: "2"}} gap="3">
-            <Box height="192px" maxWidth="400px"><Card></Card></Box>
+        <Grid columns={{initial: "1", md: "2"}} gap="3" py="3">
+            <Box height="192px" maxWidth="400px">
+                <Card>
+                  <Grid columns="1" rows="5" gap="3">
+                    <Box className='flex justify-between'>
+                        <div><p>Order Summary</p><Text size="1">visual summary for order based on range</Text></div>
+                        <div className='flex '>
+                            {
+                                ["Monthly", "Weekly", "Today"].map((range) => (
+                                    <button key={range}
+                                    onClick={() => setSelectedRange(range)}
+                                    className={`px-4 py-2 rounded-md ${
+                                      selectedRange === range
+                                        ? "bg-white"
+                                        : "bg-green-50 hover:bg-green-50"
+                                    }`}
+                                  >{range}</button>
+                                ))
+                            }
+                        </div>
+                    </Box>
+                    <Box className='w-full bg-green-300'></Box>
+                 </Grid>
+                </Card>
+            </Box>
             <Box height="192px" maxWidth="400px"><Card></Card></Box>
         </Grid>
     </div>
