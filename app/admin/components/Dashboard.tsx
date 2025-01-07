@@ -106,7 +106,7 @@ const Dashboard = () => {
             <Box height="192px" maxWidth="400px">
                 <Card>
                   <Grid columns="1" rows="5" gap="3">
-                    <Box className='flex justify-between'>
+                    <div className='flex justify-between'>
                         <div><p>Order Summary</p><Text size="1">visual summary for order based on range</Text></div>
                         <div className='flex '>
                             {
@@ -122,8 +122,8 @@ const Dashboard = () => {
                                 ))
                             }
                         </div>
-                    </Box>
-                    <Box className='w-full bg-green-300'></Box>
+                    </div>
+                    <div className='w-full bg-green-300'></div>
                  </Grid>
                 </Card>
             </Box>
