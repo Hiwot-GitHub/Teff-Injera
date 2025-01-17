@@ -17,7 +17,7 @@ const Adminpage = () => {
   const { data: session, status } = useSession();
   const [isAdmin, setIsAdmin] = useState(false);
   const [orders, setOrders] = useState<Order[]>([]);
-  const [activeTab, setActiveTab ] = useState('orders');
+  const [activeTab, setActiveTab ] = useState("Orders");
   const [isSidebarOpen, setIsSidebarOpen ] = useState(false);
 
    useEffect(() => {

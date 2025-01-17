@@ -22,7 +22,7 @@ const Dashboard = () => {
 				      size="3"
 				      radius="full"
 				     fallback={
-                        <Box width="24px" height="24px">
+                        <Box width="24px" height="24px" className='flex items-center justify-center'>
                             <BsCupStraw />
                         </Box>
                      }
@@ -43,7 +43,7 @@ const Dashboard = () => {
 				      size="3"
 				      radius="full"
 				     fallback={
-                        <Box width="24px" height="24px">
+                        <Box width="24px" height="24px" className='flex items-center justify-center'>
                             <BsCurrencyDollar />
                         </Box>
                      }
@@ -65,7 +65,7 @@ const Dashboard = () => {
 				      size="3"
 				      radius="full"
 				     fallback={
-                        <Box width="24px" height="24px">
+                        <Box width="24px" height="24px" className='flex items-center justify-center'>
                             <GrNotes />
                         </Box>
                      }
@@ -87,7 +87,7 @@ const Dashboard = () => {
 				      size="3"
 				      radius="full"
 				     fallback={
-                        <Box width="24px" height="24px">
+                        <Box width="24px" height="24px" className='flex items-center justify-center'>
                             < MdPeopleAlt />
                         </Box>
                      }
@@ -123,11 +123,11 @@ const Dashboard = () => {
                             }
                         </div>
                     </div>
-                    <div className='flex w-full bg-green-100 justify-between align-middle h-8'>
+                    <Box maxHeight="36px" className='flex w-full bg-green-100 items-center align-middle h-8'>
                         <div className='flex w-8 h-8 bg-green-500 text-white justify-center items-center'>
                         <Text weight="bold">25</Text></div><Text className='text-black'>New Orders</Text>
                         <div className='w-1 h-1 rounded-full bg-green-500 '></div>
-                    </div>
+                    </Box>
                     <div className='flex gap-2'>
                         <Card>
                             <Text as='div'>25</Text>
