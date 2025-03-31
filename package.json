@@ -14,7 +14,7 @@
     "@hookform/resolvers": "^3.3.4",
     "@prisma/client": "^5.15.0",
     "@radix-ui/themes": "^3.0.2",
-    "axios": "^1.6.8",
+    "axios": "^1.8.2",
     "classnames": "^2.5.1",
     "easymde": "^2.18.0",
     "firebase": "^10.14.0",
