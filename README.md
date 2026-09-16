@@ -71,5 +71,5 @@ Follow these steps to clone and run the project on your local machine:
 5. **Start Development Server:**
     ```bash
     npm run dev
-    Open http://localhost:3000 in your browser to view the application locally.
+   
 
